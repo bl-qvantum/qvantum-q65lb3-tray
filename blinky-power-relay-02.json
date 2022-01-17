@@ -9,7 +9,7 @@
   "linkQuality": {
     "action": "reading",
     "type": "scalar",
-    "value": 65,
+    "value": 62,
     "unit": "/70",
     "alarm": {
       "value": 0,
@@ -29,7 +29,7 @@
   "signalLevel": {
     "action": "reading",
     "type": "scalar",
-    "value": -45,
+    "value": -48,
     "unit": "dBm",
     "alarm": {
       "value": 0,
@@ -89,7 +89,7 @@
   "adcSampleRate": {
     "action": "reading",
     "type": "scalar",
-    "value": 7.581,
+    "value": 7.58,
     "unit": "kHz",
     "alarm": {
       "value": 0,
@@ -109,7 +109,7 @@
   "powerOn": {
     "action": "setting",
     "type": "scalar",
-    "value": 0,
+    "value": 1,
     "unit": "unit",
     "alarm": {
       "value": 0,
@@ -334,7 +334,7 @@
   "avgDurationCost": {
     "action": "reading",
     "type": "scalar",
-    "value": 0.864,
+    "value": 0.863,
     "unit": "SEK/kW-hr",
     "alarm": {
       "value": 0,

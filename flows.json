@@ -15,38 +15,6 @@
         "info": ""
     },
     {
-        "id": "2c5d25cb.3428ca",
-        "type": "subflow",
-        "name": "App NavBar",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "c104210d.418eb"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 340,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "c104210d.418eb",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "color": "#DDAA99"
-    },
-    {
         "id": "ca529822.9112f8",
         "type": "subflow",
         "name": "HTML",
@@ -58,67 +26,16 @@
                 "y": 40,
                 "wires": [
                     {
-                        "id": "99bb1519.85fc18"
+                        "id": "973fc413821dc233"
                     }
                 ]
             }
         ],
         "out": [],
         "env": [],
-        "color": "#DDAA99"
-    },
-    {
-        "id": "e3c68b88.d82258",
-        "type": "subflow",
-        "name": "App CSS",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "f5a9eda8.5c5bc"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 320,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "f5a9eda8.5c5bc",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "color": "#DDAA99"
-    },
-    {
-        "id": "8341090a.df9758",
-        "type": "subflow",
-        "name": "App HTML",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "966e270e.701e48"
-                    }
-                ]
-            }
-        ],
-        "out": [],
-        "env": [],
-        "color": "#DDAA99"
+        "meta": {},
+        "color": "#FFAAAA",
+        "icon": "font-awesome/fa-cloud"
     },
     {
         "id": "d41e41f275b927e5",
@@ -423,23 +340,6 @@
         "responsetimeout": "2000"
     },
     {
-        "id": "c104210d.418eb",
-        "type": "template",
-        "z": "2c5d25cb.3428ca",
-        "name": "navBar",
-        "field": "payload.navBar",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td style=\"text-align:left; vertical-align:middle;\"  width=\"20%\">\n                    <img src=\"/img/bl-mc-icon-inverse.png\" height=\"75px\"/>\n                </td>\n                <td width=\"60%\" style=\"text-align:center; vertical-align:middle;\">\n                    <h1 class=\"jumbotron-title big-text bold-text\">\n                        <img src=\"/img/{{{payload.navBarIcon}}}\" height=\"75px\" style=\"padding-right:20px;\"/><span>{{{payload.title}}}</span>\n                    </h1>\n                </td>\n                <td style=\"text-align:right; vertical-align:middle;\" width=\"20%\">\n                    <a href='/apps'><img src=\"/img/appsYellow.png\" height=\"75px\"/></a>\n                </td>\n            </tr>\n        </table>\n    </div>",
-        "output": "str",
-        "x": 200,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "b9df3f26.ab53f",
         "type": "template",
         "z": "ca529822.9112f8",
@@ -450,7 +350,7 @@
         "syntax": "mustache",
         "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n{{{payload.head}}}\n  </head>\n  <body>\n{{{payload.navBar}}}\n{{{payload.html.websocket}}}\n{{{payload.body}}}\n{{{payload.foot}}}\n  </body>\n</html>",
         "output": "str",
-        "x": 1150,
+        "x": 1370,
         "y": 40,
         "wires": [
             [
@@ -469,7 +369,7 @@
         "syntax": "mustache",
         "template": "    <div id=\"acknowledgeDialog\" title=\"Acknowledge\" class='card'>\n        <p class='card-title' id='acknowledgeDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='acknowledgeDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"optionDialog\" title=\"Option\" class='card'>\n        <p class='card-title' id='optionDialogTitle'>Choice</p>\n        <div class='card-body'>\n            <p class='tableText' id='optionDialogText'>Text</p>\n        </div>\n    </div>\n    <div id=\"messageDialog\" title=\"Message\" class='card'>\n        <p class='card-title' id='messageDialogTitle'>Warning</p>\n        <div class='card-body'>\n            <p class='tableText' id='messageDialogText'>Text</p>\n        </div>\n    </div>\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>",
         "output": "str",
-        "x": 690,
+        "x": 950,
         "y": 40,
         "wires": [
             [
@@ -488,7 +388,7 @@
         "syntax": "mustache",
         "template": "    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=4\" type=\"image/x-icon\"/>\n    <title>{{payload.title}}</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\"/>\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n{{{payload.extraScripts}}}\n    <style>\n{{{payload.css}}}\n    </style>\n    <style>\n{{{payload.extraCss}}}\n    </style>\n    <script>\n{{{payload.utilityScripts}}}\n    </script>\n    <script>\n{{{payload.javascript}}}\n    </script>",
         "output": "str",
-        "x": 570,
+        "x": 830,
         "y": 40,
         "wires": [
             [
@@ -503,7 +403,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1270,
+        "x": 1490,
         "y": 40,
         "wires": []
     },
@@ -518,7 +418,7 @@
         "syntax": "mustache",
         "template": "        var remoteApp = true;\n        var ws;\n        var userID = -1;\n        var useWebSocketsFlag = true;\n        var project = '{{{payload.project}}}';\n        var heartBeatImage = false;\n        var wsUri = '';\n        var wsConnected = false;\n\n        function setRemoteApp(remoteAppSet)\n        {\n            remoteApp  = remoteAppSet;\n        }\n        function webSocketConnected()\n        {\n            return wsConnected;\n        }\n        function useWebSockets(webSocketsFlag)\n        {\n            useWebSocketsFlag = webSocketsFlag;\n        }\n        function wsConnectC()\n        {\n            if (!useWebSocketsFlag)\n            {\n                return;\n            }\n            if (wsUri.length < 1)\n            {\n                var uri = window.location.href.split('://');\n                var wslead = 'ws://';\n                if (uri[0] == 'https') wslead = 'wss://';\n                var questionLocation = uri[1].indexOf('?');\n                if (questionLocation >= 0)\n                {\n                    uri[1] = uri[1].substring(0,questionLocation);\n//                    console.log(uri[1]);\n                }\n                if (uri[1].indexOf('/') < (uri[1].length - 1))\n                {\n                    wsUri = wslead + uri[1] + '/websocket';\n                }\n                else\n                {\n                    wsUri = wslead + uri[1] + 'websocket';\n                }\n            }\n            ws = new WebSocket(wsUri);\n            ws.onmessage = function(event)\n            {\n                onWebSocketMessage(JSON.parse(event.data));\n        \n            };\n            ws.onopen = function()\n            {\n                console.log(\"Websocket connected\");\n                wsConnected = true;\n                $('#webSocketStatus').html('Open');\n                $('#reOpenWebSocketButton').hide();\n                $('#webSocketStatusRow').css('padding-bottom','0px');\n                $('#webSocketStatusCard').hide();\n                onWebSocketOpen();\n            };\n            ws.onclose = function()\n            {\n                console.log(\"Websocket closed\");\n                wsConnected = false;\n                $('#webSocketStatus').html('Closed');\n                $('#reOpenWebSocketButton').show();\n                $('#webSocketStatusCard').show();\n                $('#webSocketStatusRow').css('padding-bottom','25px');\n                onWebSocketClose();\n                wsConnectC();\n            };\n        }\n\n        function getRandomInt(max)\n        {\n          return Math.floor(Math.random() * Math.floor(max));\n        }\n        $( document ).ready(function()\n        {\n            userID  = {{{payload.userID}}};\n            if (!useWebSocketsFlag)\n            {\n                $('#webSocketStatusRow').css('padding-bottom','0px');\n                $('#webSocketStatusCard').hide();\n            }\n            wsConnectC();\n            onDocumentReady();\n       });\n        $( function() \n        {\n            $( \"#acknowledgeDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() { $( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n            $( \"#messageDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:[]\n                });\n        } );\n        function optionDialog(headerText, title, text, buttonTexts, buttonFunctions)\n        {\n            var buttonDefinitions = [];\n            for (var ii = 0; ii < buttonTexts.length; ++ii)\n            {\n                buttonDefinitions[ii] = \n                    {\n                        text: buttonTexts[ii],\n                        click: buttonFunctions[ii],\n                        showText: false\n                    };\n            }\n            $( \"#optionDialog\" ).dialog( \"option\", \"title\", headerText );   \n            $( \"#optionDialog\" ).dialog( \"option\", \"buttons\", buttonDefinitions);\n            $( \"#optionDialogTitle\" ).html(title);\n            $( \"#optionDialogText\" ).html(text);\n            $( \"#optionDialog\" ).dialog( \"open\" );\n        }\n        $( function() \n        {\n            $( \"#optionDialog\" ).dialog(\n                {\n                    width:    500,\n                    autoOpen: false,\n                    buttons:\n                    [\n                        {\n                            text: \"Ok\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                        {\n                            text: \"Cancel\",\n                            click: function() {$( this ).dialog( \"close\" );},\n                            showText: false\n                        },\n                   ]\n                });\n        } );\n        function acknowledgeDialog(headerText, title, text)\n        {\n            $( \"#acknowledgeDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#acknowledgeDialogTitle\" ).html(title);\n            $( \"#acknowledgeDialogText\" ).html(text);\n            $( \"#acknowledgeDialog\" ).dialog( \"open\" );\n        }\n        function messageDialog(headerText, title, text)\n        {\n            $( \"#messageDialog\" ).dialog( \"option\", \"title\", headerText );    \n            $( \"#messageDialogTitle\" ).html(title);\n            $( \"#messageDialogText\" ).html(text);\n            $( \"#messageDialog\" ).dialog( \"open\" );\n        }\n        function heartbeat()\n        {\n            heartBeatImage = !heartBeatImage;\n            var heartBeatImageSrc = '/img/heartRed.png';\n            if (heartBeatImage) heartBeatImageSrc = '/img/heartPink.png';\n            $('#heartBeatID').attr('src',heartBeatImageSrc);\n        }\n        function getCookie(extension)\n        {\n            var cookies = document.cookie.split(';');\n            var token = null;\n            var cookieName = project + extension + \"=\";\n            for (var icookie = 0; icookie < cookies.length; ++icookie)\n            {\n                var index = cookies[icookie].indexOf(cookieName);\n                if (index >= 0)\n                {\n                    token = cookies[icookie].substring(index + cookieName.length);\n                }\n            }\n            return token;\n        }\n        function sendActionMsg(topic,role,actionMsg)\n        {\n            var roleToken = \"\";\n            if (remoteApp) roleToken  = getCookie('Role');\n            if (roleToken == null)\n            {\n                location.reload();\n                return;\n            }\n            var webSocketMsg = \n            {\n                topic     : topic,\n                payload   : actionMsg,\n                userID    : userID,\n                token     : getCookie('Role'),\n                role      : role\n            };\n            ws.send(JSON.stringify(webSocketMsg));\n        }\n",
         "output": "str",
-        "x": 430,
+        "x": 690,
         "y": 40,
         "wires": [
             [
@@ -536,7 +436,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 220,
+        "x": 480,
         "y": 40,
         "wires": [
             [
@@ -555,7 +455,7 @@
         "syntax": "mustache",
         "template": "<!-- websocket status HTML -->\n    <div width=\"100%\">\n        <div class='row' id='webSocketStatusRow' style='padding-bottom: 0px;'>\n            <div class='col-md-12' align='center'>\n\n                <div class='card' id='webSocketStatusCard' >\n                    <p class='card-title'>Web Socket Status</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row'  style='padding-top: 0px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='60%' >\n                                        <span class='card-text' >Websocket Status</span>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <button class='btn card-button btn-block big-text' id='reOpenWebSocketButton' onclick=\"wsConnectC()\">Re-open</button>\n                                    </td>\n                                    <td width='20%' align='center'>\n                                        <span class='card-text' id='webSocketStatus' >Closed</span>\n                                   </td>\n                                </tr>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n",
         "output": "str",
-        "x": 840,
+        "x": 1100,
         "y": 40,
         "wires": [
             [
@@ -573,7 +473,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 990,
+        "x": 1250,
         "y": 40,
         "wires": [
             [
@@ -582,9 +482,9 @@
         ]
     },
     {
-        "id": "f5a9eda8.5c5bc",
+        "id": "973fc413821dc233",
         "type": "template",
-        "z": "e3c68b88.d82258",
+        "z": "ca529822.9112f8",
         "name": "CSS",
         "field": "payload.css",
         "fieldType": "msg",
@@ -592,42 +492,30 @@
         "syntax": "mustache",
         "template": "        :root \n        {\n          --color1: #415c71;\n          --color2: #547792;\n          --color3: #9eb5c7;\n          --color4: #c6c2bb;\n          --color5: #fdc300;\n          --big-text-size :300%;\n          --bold-text :900;\n          --vert-pad : 25px;\n          --horz-pad : 25px;\n        }\n        body \n        {\n          background-color: white !important;\n          padding-left:25px;\n          padding-right:25px;\n        }\n        \n        img \n        {\n          object-fit: contain;\n        }\n        a\n        {\n            color: white;\n        }\n        a:visited \n        { \n            color: var(--white);\n        }\n        a:hover \n        { \n            color: var(--color5);\n        }\n\n        .jumbotron \n        {\n          background-color: var(--color2) !important;\n          color: white;\n          padding-top:25px;\n          padding-bottom:25px;\n        }\n        .jumbotron-title\n        {\n          color:var(--color5);\n        }\n        .jumbotron-button\n        {\n          color: white;\n          background-color: var(--color1);\n       }\n        .card\n        {\n          background-color: var(--color2) !important;\n          text-align: center;\n        }\n        .card-body\n        {\n          background-color: var(--color3);;\n        }\n        .card-button\n        {\n          color: var(--color5) !important;\n          background-color: var(--color1) !important;\n          font-weight: bold;\n        }\n        .card-title\n        {\n          color: var(--color5);\n          font-weight: var(--bold-text);\n          font-size: var(--big-text-size);\n         }\n        .card-text\n        {\n          color: white;\n          text-align: left;\n          font-size: var(--big-text-size);\n        }\n        .tableHeading\n        {\n          color:var(--container-title-color);\n        }\n        .tableText\n        {\n          color:var(--container-text-color);\n          font-size: var(--big-text-size);\n        }\n       .vert-pad\n        {\n            padding-top:var(--vert-pad);;\n            padding-bottom:var(--vert-pad);;\n        }\n        .horz-pad\n        {\n            padding-left:var(--horz-pad);;\n            padding-right:var(--horz-pad);;\n        }\n        .big-text\n        {\n            font-size: var(--big-text-size);\n        }\n        .bold-text\n        {\n            font-weight: var(--bold-text);\n        }\n       .ui-dialog-titlebar-close \n        {\n            visibility: hidden;\n        }\n        input.inputLarger \n        { \n            transform: scale(3); \n            margin: 1px;\n        }\n        .googleSlide4by3-container \n        {\n            position: relative;\n            overflow: hidden;\n            padding-top: 75.0%;\n        }\n        .googleSlide4by3-iframe {\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            border: 0;\n        }        \n        .custom-select\n        {\n            color: black;\n            background-color: white;\n            height:80px;\n            line-height:70px;\n        }\n",
         "output": "str",
-        "x": 190,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "966e270e.701e48",
-        "type": "subflow:e3c68b88.d82258",
-        "z": "8341090a.df9758",
-        "x": 200,
-        "y": 80,
+        "x": 150,
+        "y": 40,
         "wires": [
             [
-                "899d0666.97b868"
+                "f70dc925de99c61c"
             ]
         ]
     },
     {
-        "id": "9460eaf0.da7628",
-        "type": "subflow:ca529822.9112f8",
-        "z": "8341090a.df9758",
-        "name": "",
-        "x": 620,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "899d0666.97b868",
-        "type": "subflow:2c5d25cb.3428ca",
-        "z": "8341090a.df9758",
-        "x": 420,
-        "y": 80,
+        "id": "f70dc925de99c61c",
+        "type": "template",
+        "z": "ca529822.9112f8",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td style=\"text-align:left; vertical-align:middle;\"  width=\"20%\">\n                    <img src=\"/img/bl-mc-icon-inverse.png\" height=\"75px\"/>\n                </td>\n                <td width=\"60%\" style=\"text-align:center; vertical-align:middle;\">\n                    <h1 class=\"jumbotron-title big-text bold-text\">\n                        <img src=\"/img/{{{payload.navBarIcon}}}\" height=\"75px\" style=\"padding-right:20px;\"/><span>{{{payload.title}}}</span>\n                    </h1>\n                </td>\n                <td style=\"text-align:right; vertical-align:middle;\" width=\"20%\">\n                    <a href='/apps'><img src=\"/img/appsYellow.png\" height=\"75px\"/></a>\n                </td>\n            </tr>\n        </table>\n    </div>",
+        "output": "str",
+        "x": 280,
+        "y": 40,
         "wires": [
             [
-                "9460eaf0.da7628"
+                "99bb1519.85fc18"
             ]
         ]
     },
@@ -3167,7 +3055,7 @@
         "y": 260,
         "wires": [
             [
-                "c1ea8a4a6c9d59df"
+                "5ff3eca699d5dd8a"
             ]
         ]
     },
@@ -3303,7 +3191,7 @@
         "y": 200,
         "wires": [
             [
-                "442b832cdc12d085"
+                "22e0663b43e2f0b9"
             ]
         ]
     },
@@ -3426,24 +3314,6 @@
                 "f328fcb4.91dc"
             ]
         ]
-    },
-    {
-        "id": "442b832cdc12d085",
-        "type": "subflow:8341090a.df9758",
-        "z": "c4285970.3276d8",
-        "name": "",
-        "x": 990,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "c1ea8a4a6c9d59df",
-        "type": "subflow:8341090a.df9758",
-        "z": "c4285970.3276d8",
-        "name": "",
-        "x": 990,
-        "y": 260,
-        "wires": []
     },
     {
         "id": "ba79496e.4e42b8",
@@ -3731,15 +3601,6 @@
         ]
     },
     {
-        "id": "9caafb0f1f33ec3d",
-        "type": "subflow:8341090a.df9758",
-        "z": "c4285970.3276d8",
-        "name": "",
-        "x": 1310,
-        "y": 700,
-        "wires": []
-    },
-    {
         "id": "ea72affbdba78c7b",
         "type": "template",
         "z": "c4285970.3276d8",
@@ -3830,8 +3691,35 @@
         "y": 700,
         "wires": [
             [
-                "9caafb0f1f33ec3d"
+                "d1a006c6f1b2b944"
             ]
         ]
+    },
+    {
+        "id": "22e0663b43e2f0b9",
+        "type": "subflow:ca529822.9112f8",
+        "z": "c4285970.3276d8",
+        "name": "",
+        "x": 950,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5ff3eca699d5dd8a",
+        "type": "subflow:ca529822.9112f8",
+        "z": "c4285970.3276d8",
+        "name": "",
+        "x": 950,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d1a006c6f1b2b944",
+        "type": "subflow:ca529822.9112f8",
+        "z": "c4285970.3276d8",
+        "name": "",
+        "x": 1250,
+        "y": 700,
+        "wires": []
     }
 ]
