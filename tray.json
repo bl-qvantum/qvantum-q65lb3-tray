@@ -2,11 +2,11 @@
   "type": "blinky-power-relay",
   "name": "02",
   "arcPeriod": 60000,
-  "timeStamp": 1661833691369,
+  "timeStamp": 1662375615827,
   "watchdog": {
     "action": "reading",
     "type": "scalar",
-    "value": 65,
+    "value": 14850,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -46,7 +46,7 @@
   "signalLevel": {
     "action": "reading",
     "type": "scalar",
-    "value": -38,
+    "value": -29,
     "unit": "dBm",
     "alarm": {
       "value": 0,
@@ -66,7 +66,7 @@
   "power": {
     "action": "reading",
     "type": "scalar",
-    "value": 4,
+    "value": 28.4,
     "unit": "Watts",
     "alarm": {
       "value": 0,
@@ -86,7 +86,7 @@
   "current": {
     "action": "reading",
     "type": "scalar",
-    "value": 0.017,
+    "value": 0.118,
     "unit": "Amps",
     "alarm": {
       "value": 0,
@@ -106,7 +106,7 @@
   "adcSampleRate": {
     "action": "reading",
     "type": "scalar",
-    "value": 7.579,
+    "value": 7.57,
     "unit": "kHz",
     "alarm": {
       "value": 0,
