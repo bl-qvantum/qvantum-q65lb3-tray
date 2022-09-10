@@ -1,5 +1,5 @@
 # Blinky Power Relay Tray
-Many old heating systems have no way to remotely turn them on and off so it is not possible to interface a spot price device directly to an old heating system. Replacing the entire heating system just because the heating system is manually controlled  but is otherwise functioning perfectly. would be very wasteful. 
+Many old heating systems have no way to remotely turn them on and off so it is not possible to interface a spot price device directly to an old heating system. Replacing the entire heating system just because the heating system is manually controlled  but is otherwise functioning perfectly would be very wasteful. 
 
 It is not advised to power control a heating system by just turning it on and off with an electrical switch (relay). Instead an electrical switch (relay) can be used to control the  small pump that is used to pump hot water though the radiators.
 
