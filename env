@@ -1,11 +1,9 @@
-MQTTSUBSCRIBE=blinky-lite-v4/blinky-power-relay/02/setting/#
-MQTTCLIENTID=blinky-power-relay-tray-02
+MQTTSUBSCRIBE=blinky-lite-v4/qvantum-q65llb3/simrishamn/setting/#
+MQTTCLIENTID=qvantum-q65llb3-tray-simrishamn
 MQTTSERVERIP=aaaa
 MQTTUSERNAME=bbbb
 MQTTPASSWORD=cccc
-SERIALPORT=/dev/rfcomm0
-SERIALBUFSIZE=14
-PM2NAME=1880-power-relay-02
+PM2NAME=1880-qvantum-simrishamn
 SPOTPRICEPING=blinky-lite-v4/espotPrice/SE4/setting/ping
 SPOTPRICEREADING=blinky-lite-v4/espotPrice/SE4/reading
 NODEREDCONFIGSECRET=dddd
