@@ -2,29 +2,29 @@
     {
         "id": "281e0a510310e9c6",
         "type": "tab",
-        "label": "blinky-relay-tray",
+        "label": "qvantum-q65llb3-tray",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "40e56362c23599cc",
+        "id": "24d6701c4857e25e",
         "type": "group",
         "z": "281e0a510310e9c6",
         "name": "Edit Me",
         "style": {
+            "stroke": "#001f60",
             "fill": "#9363b7",
             "label": true,
             "label-position": "n",
-            "color": "#ffff00",
-            "stroke": "#001f60"
+            "color": "#ffff00"
         },
         "nodes": [
-            "5e7d2de841bcb0c1"
+            "fcc98447c16c3949"
         ],
-        "x": 914,
-        "y": 979,
-        "w": 172,
+        "x": 94,
+        "y": 279,
+        "w": 212,
         "h": 82
     },
     {
@@ -42,30 +42,10 @@
         "nodes": [
             "352395cfbb5c4259"
         ],
-        "x": 514,
+        "x": 394,
         "y": 599,
         "w": 232,
         "h": 82
-    },
-    {
-        "id": "24d6701c4857e25e",
-        "type": "group",
-        "z": "281e0a510310e9c6",
-        "name": "Edit Me",
-        "style": {
-            "stroke": "#001f60",
-            "fill": "#9363b7",
-            "label": true,
-            "label-position": "n",
-            "color": "#ffff00"
-        },
-        "nodes": [
-            "fcc98447c16c3949"
-        ],
-        "x": 74,
-        "y": 331.5,
-        "w": 212,
-        "h": 97
     },
     {
         "id": "6ad7c930.1a06b8",
@@ -184,30 +164,11 @@
         "sessionExpiry": ""
     },
     {
-        "id": "a4f4c59daf894823",
-        "type": "serial-port",
-        "serialport": "$(SERIALPORT)",
-        "serialbaud": "19200",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "$(SERIALBUFSIZE)",
-        "bin": "bin",
-        "out": "count",
-        "addchar": "",
-        "responsetimeout": "2000"
-    },
-    {
         "id": "30f384ea.cf21fc",
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Save tray config in Memory",
-        "func": "global.set('settingInProgress', false);\nmsg.payload.watchdog.value = 0;\nglobal.set('tray', msg.payload);\nglobal.set('deviceInit', 0);\nreturn msg;",
+        "func": "msg.payload.watchdog.value = 0;\nglobal.set('tray', msg.payload);\nreturn msg;",
         "outputs": 0,
         "noerr": 0,
         "initialize": "",
@@ -306,7 +267,7 @@
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Init flow Variables",
-        "func": "var mqttSplit = msg.payload.split('/');\nvar trayProps = {\n    box         :   mqttSplit[0],\n    type        :   mqttSplit[1],\n    name        :   mqttSplit[2],\n};\nglobal.set('trayProps',trayProps);\nglobal.set('settingInProgress', true);\n\nreturn {topic: 'readFile', payload:true};",
+        "func": "var mqttSplit = msg.payload.split('/');\nvar trayProps = {\n    box         :   mqttSplit[0],\n    type        :   mqttSplit[1],\n    name        :   mqttSplit[2],\n};\nglobal.set('trayProps',trayProps);\nreturn {topic: 'readFile', payload:true};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -384,7 +345,7 @@
         "oldrc": false,
         "name": "Restart",
         "x": 680,
-        "y": 1240,
+        "y": 1020,
         "wires": [
             [],
             [],
@@ -414,7 +375,7 @@
         "repair": false,
         "outputs": 2,
         "x": 290,
-        "y": 1260,
+        "y": 1040,
         "wires": [
             [
                 "985cd59b3e414efe"
@@ -436,7 +397,7 @@
         "oldrc": false,
         "name": "Reboot",
         "x": 480,
-        "y": 1300,
+        "y": 1080,
         "wires": [
             [],
             [],
@@ -461,7 +422,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 140,
-        "y": 1260,
+        "y": 1040,
         "wires": [
             [
                 "9e290594.69c548"
@@ -487,56 +448,6 @@
         "wires": []
     },
     {
-        "id": "99fbe8135d0ce161",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Readings Alarm Scan",
-        "func": "var newData = msg.payload;\nvar tray = global.get('tray');\ntray.linkQuality.value     = global.get('linkQuality');\ntray.signalLevel.value     = global.get('signalLevel');\nvar alarmFlagReading = scalarAlarmScan(tray, 'reading');\nvar alarmFlagSetting = scalarAlarmScan(tray, 'setting');\nvar newMsg   = null;\nvar newSettingMsg = null;\nif (msg.topic == 'newSetting')\n{\n    newSettingMsg = \n    {\n        topic: 'newSetting',\n        payload: true\n    }\n};\nif (newData)\n{\n    newMsg = \n    {\n        topic: 'newData',\n        payload: true\n    }\n}\nreturn [newMsg, newSettingMsg];\n\nfunction getActionArray(tray, type, actionType)\n{\n    var actionArray = [];\n    var keys = Object.keys(tray);\n    for (var ii = 0; ii < keys.length; ++ii)\n    {\n        if (tray[keys[ii]].hasOwnProperty('type'))\n        {\n            if (tray[keys[ii]].type == type)\n            {\n                if (tray[keys[ii]].action == actionType)\n                {\n                    actionArray.push(tray[keys[ii]]);\n                }\n            }\n        }\n    }\n    return actionArray;\n}\nfunction scalarAlarmScan(tray, actionType)\n{\n    var alarmFlag = false;\n    var actionArray = getActionArray(tray, 'scalar', actionType);\n    if (actionArray.length > 0)\n    {\n        for (var ii = 0; ii < actionArray.length; ++ii)\n        {\n            let oldAlarmValue = actionArray[ii].alarm.value;\n            actionArray[ii].alarm.value = 0;\n            if (!isNaN(actionArray[ii].value))\n            {\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.low)  actionArray[ii].alarm.value = 1;\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.lolo) actionArray[ii].alarm.value = 3;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.high) actionArray[ii].alarm.value = 2;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.hihi) actionArray[ii].alarm.value = 4;\n                if (actionArray[ii].alarm.value != oldAlarmValue) alarmFlag = true;\n            }\n        }\n    }\n    return alarmFlag;\n}\n",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastAlarm', -1);",
-        "finalize": "",
-        "libs": [],
-        "x": 880,
-        "y": 640,
-        "wires": [
-            [
-                "f5d0568e288098ed"
-            ],
-            [
-                "9f8c3b4630e734a3"
-            ]
-        ]
-    },
-    {
-        "id": "a1698f8bfcc63203",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "read Status",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "2",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "8",
-        "topic": "readTable",
-        "payloadType": "date",
-        "x": 110,
-        "y": 640,
-        "wires": [
-            [
-                "b5aa124df51a8d82"
-            ]
-        ]
-    },
-    {
         "id": "4493527757138cdc",
         "type": "link out",
         "z": "281e0a510310e9c6",
@@ -558,8 +469,8 @@
             "ed0bb779fa7acca6",
             "0cd853d250156bc1"
         ],
-        "x": 35,
-        "y": 380,
+        "x": 55,
+        "y": 320,
         "wires": [
             [
                 "fcc98447c16c3949"
@@ -635,25 +546,6 @@
         ]
     },
     {
-        "id": "b5aa124df51a8d82",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Read BlinkyBus",
-        "func": "if (global.get('settingInProgress')) return null;\nif (global.get('deviceInit') != 0) return null;\nreturn {topic: \"readStatus\", payload:true, timeStamp:msg.payload};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 280,
-        "y": 640,
-        "wires": [
-            [
-                "b7fd8744c033e8b3"
-            ]
-        ]
-    },
-    {
         "id": "f75b9887786b11c4",
         "type": "function",
         "z": "281e0a510310e9c6",
@@ -699,19 +591,6 @@
         ]
     },
     {
-        "id": "f5d0568e288098ed",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Alarm Scan out",
-        "links": [
-            "45a97566b65c65cc",
-            "05c0c7b4f59ca88d"
-        ],
-        "x": 1035,
-        "y": 620,
-        "wires": []
-    },
-    {
         "id": "91cded1b31446957",
         "type": "link out",
         "z": "281e0a510310e9c6",
@@ -723,63 +602,6 @@
         "x": 735,
         "y": 180,
         "wires": []
-    },
-    {
-        "id": "a66ef2e5b482662a",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Create Setting out",
-        "links": [
-            "45a97566b65c65cc",
-            "05c0c7b4f59ca88d"
-        ],
-        "x": 335,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "930b94f38479787c",
-        "type": "split",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "",
-        "x": 1310,
-        "y": 1020,
-        "wires": [
-            [
-                "69d1e54394d2fd5e"
-            ]
-        ]
-    },
-    {
-        "id": "69d1e54394d2fd5e",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1450,
-        "y": 1020,
-        "wires": [
-            [
-                "742713de179bd6ce"
-            ]
-        ]
     },
     {
         "id": "c81b72b9290d1c36",
@@ -805,7 +627,7 @@
         "y": 520,
         "wires": [
             [
-                "b82f13a5e04e195a"
+                "47de6287cc26419f"
             ]
         ]
     },
@@ -820,30 +642,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
+        "x": 160,
         "y": 520,
         "wires": [
             [
-                "eec56d72bdbd1430",
-                "501090a1fd5f88f5"
-            ]
-        ]
-    },
-    {
-        "id": "2cd296fd87868cea",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Continue Tray readings",
-        "func": "global.set('settingInProgress',false)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 520,
-        "wires": [
-            [
+                "501090a1fd5f88f5",
                 "df03212a7e41deb1"
             ]
         ]
@@ -879,8 +682,8 @@
             "45a97566b65c65cc",
             "05c0c7b4f59ca88d"
         ],
-        "x": 995,
-        "y": 520,
+        "x": 395,
+        "y": 480,
         "wires": []
     },
     {
@@ -951,43 +754,11 @@
             "72b5ca0e2043aba0"
         ],
         "x": 35,
-        "y": 1260,
+        "y": 1040,
         "wires": [
             [
                 "557e4f40.b904e"
             ]
-        ]
-    },
-    {
-        "id": "1e34df4b19ff22cc",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "nonBlinkybusSetting Out",
-        "mode": "link",
-        "links": [
-            "04d132d87ffeb91a",
-            "339dfec21057f8d1",
-            "45a97566b65c65cc"
-        ],
-        "x": 335,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "3c51c680e18abf95",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Allow Readings",
-        "func": "if (msg.payload.address == -1)\n{\n    global.set('settingInProgress',false);\n    global.set('deviceInit', 0);\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1940,
-        "y": 1080,
-        "wires": [
-            []
         ]
     },
     {
@@ -1002,284 +773,8 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 1120,
+        "y": 940,
         "wires": []
-    },
-    {
-        "id": "fc32acfc21c97af1",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "serialBufSize",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "serialBufSize",
-        "payload": "SERIALBUFSIZE",
-        "payloadType": "env",
-        "x": 110,
-        "y": 1120,
-        "wires": [
-            [
-                "6af76a294daa96eb"
-            ]
-        ]
-    },
-    {
-        "id": "52b50d7763d10fa2",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Send Setting",
-        "func": "global.set('settingInProgress',true);\nvar bufsize = 4;\nvar buffer = new ArrayBuffer(bufsize);\nvar settingsView = new DataView(buffer);\nsettingsView.setUint8(0, 1, true); //setting\nsettingsView.setUint8(1, msg.payload.address, true); //address\nsettingsView.setInt16(2, msg.payload.value, true); //value\nreturn {topic:'setting',payload:Buffer.from(buffer),address:msg.payload.address};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 150,
-        "y": 960,
-        "wires": [
-            [
-                "3026811a11de85fd"
-            ]
-        ]
-    },
-    {
-        "id": "e023e3fbaf0e8beb",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Get Reading",
-        "func": "var bufsize = 4;\nvar buffer = new ArrayBuffer(bufsize);\nvar settingsView = new DataView(buffer);\nsettingsView.setUint8(0, 0, true); //setting\nsettingsView.setUint8(1, 0, true); //address\nsettingsView.setInt16(2, 0, true); //value\n\nreturn {topic:'reading',payload:Buffer.from(buffer),timeStamp:msg.timeStamp};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 150,
-        "y": 1040,
-        "wires": [
-            [
-                "3026811a11de85fd"
-            ]
-        ]
-    },
-    {
-        "id": "1fc86ac13df1a13f",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Check Reading",
-        "func": "var serialBufSize = global.get('serialBufSize');\nvar dataView     = new DataView(new ArrayBuffer(2));\nvar dataBuffer = [];\nfor (var ii = 0; ii < (msg.payload.length / 2); ++ii)\n{\n    for (ib = 0; ib < 2; ++ib)   dataView.setUint8(ib, msg.payload[(ii * 2) + 1 - ib]);\n    dataBuffer.push( dataView.getInt16(0));\n}\nvar topic = 'newReading';\nif (global.get('settingInProgress'))\n{\n    topic = 'newSetting';\n    if (global.get('deviceInit') < 1);\n        global.set('settingInProgress', false)\n}\nglobal.get('tray').timeStamp = new Date().getTime();\nif (dataBuffer[0] == 1)\n{\n    var initDeviceMsg = {topic:\"initDevice\",payload:true};\n    global.set('settingInProgress', true)\n    global.set('deviceInit', 1);\n    return [null, initDeviceMsg];\n}\nreturn [{topic:topic, payload:dataBuffer},null];\n\n\n\n",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 1000,
-        "wires": [
-            [
-                "ed6ec66d5cb48297"
-            ],
-            [
-                "5e7d2de841bcb0c1"
-            ]
-        ]
-    },
-    {
-        "id": "b0f91914917b2de1",
-        "type": "link in",
-        "z": "281e0a510310e9c6",
-        "name": "BlinkyBus Setting In",
-        "links": [
-            "01598091ca19387c",
-            "aa428318895690ee",
-            "93758a55568a2f76"
-        ],
-        "x": 35,
-        "y": 960,
-        "wires": [
-            [
-                "52b50d7763d10fa2"
-            ]
-        ]
-    },
-    {
-        "id": "da43bbc0389c5027",
-        "type": "link in",
-        "z": "281e0a510310e9c6",
-        "name": "BlinkyBus Reading In",
-        "links": [
-            "6238aa4113faa347",
-            "b7fd8744c033e8b3"
-        ],
-        "x": 35,
-        "y": 1040,
-        "wires": [
-            [
-                "e023e3fbaf0e8beb"
-            ]
-        ]
-    },
-    {
-        "id": "ed6ec66d5cb48297",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "BlinkyBus Reading Out",
-        "mode": "link",
-        "links": [
-            "a3d99d9c796d9231",
-            "edafb769c9979256"
-        ],
-        "x": 835,
-        "y": 980,
-        "wires": []
-    },
-    {
-        "id": "aa428318895690ee",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Init device setting in",
-        "mode": "link",
-        "links": [
-            "b0f91914917b2de1"
-        ],
-        "x": 1685,
-        "y": 960,
-        "wires": []
-    },
-    {
-        "id": "b7fd8744c033e8b3",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Poll BlinkBus In",
-        "mode": "link",
-        "links": [
-            "da43bbc0389c5027"
-        ],
-        "x": 395,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "edafb769c9979256",
-        "type": "link in",
-        "z": "281e0a510310e9c6",
-        "name": "Poll BlinkBus Out",
-        "links": [
-            "ed6ec66d5cb48297"
-        ],
-        "x": 495,
-        "y": 640,
-        "wires": [
-            [
-                "352395cfbb5c4259"
-            ]
-        ]
-    },
-    {
-        "id": "93758a55568a2f76",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Tray Setting In",
-        "mode": "link",
-        "links": [
-            "b0f91914917b2de1"
-        ],
-        "x": 495,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "ebb5481bd4277b24",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1180,
-        "y": 1020,
-        "wires": [
-            [
-                "930b94f38479787c"
-            ]
-        ]
-    },
-    {
-        "id": "742713de179bd6ce",
-        "type": "switch",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "property": "payload.address",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "gte",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "-1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1590,
-        "y": 1020,
-        "wires": [
-            [
-                "aa428318895690ee"
-            ],
-            [
-                "cc28796b6343f69f"
-            ]
-        ]
-    },
-    {
-        "id": "cc28796b6343f69f",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1760,
-        "y": 1080,
-        "wires": [
-            [
-                "3c51c680e18abf95"
-            ]
-        ]
     },
     {
         "id": "10e54acd6f4f5fb4",
@@ -1303,7 +798,7 @@
         "payload": "PM2NAME",
         "payloadType": "env",
         "x": 110,
-        "y": 1180,
+        "y": 940,
         "wires": [
             [
                 "6af76a294daa96eb"
@@ -1322,7 +817,7 @@
         "finalize": "",
         "libs": [],
         "x": 500,
-        "y": 1240,
+        "y": 1020,
         "wires": [
             [
                 "c0939e4a.6386f"
@@ -1377,107 +872,6 @@
         ]
     },
     {
-        "id": "7c54db38ef42ea17",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "project",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "project",
-        "payload": "PROJECT",
-        "payloadType": "env",
-        "x": 100,
-        "y": 1400,
-        "wires": [
-            [
-                "df7945d1e609440c"
-            ]
-        ]
-    },
-    {
-        "id": "df7945d1e609440c",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Save global env variables",
-        "func": "global.set(msg.topic,msg.payload);\nreturn null;",
-        "outputs": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 1400,
-        "wires": []
-    },
-    {
-        "id": "0ad39c241b705258",
-        "type": "exec",
-        "z": "281e0a510310e9c6",
-        "command": "iwconfig",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "",
-        "x": 720,
-        "y": 1400,
-        "wires": [
-            [
-                "b6b5acfa59ca717b"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "b2e05104b7f0df93",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 560,
-        "y": 1400,
-        "wires": [
-            [
-                "0ad39c241b705258"
-            ]
-        ]
-    },
-    {
-        "id": "b6b5acfa59ca717b",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Get Signal Quality",
-        "func": "var info = msg.payload;\nvar linkStartIndex  = info.indexOf('Link Quality=');\nvar levelStartIndex = info.indexOf('Signal level=');\nvar linkQuality = Number(info.substring(linkStartIndex + 13, linkStartIndex + 15));\nvar signalLevel =  Number(info.substring(levelStartIndex + 13, levelStartIndex + 16));\nvar ssid = info.substring(info.indexOf('ESSID') + 7);\nssid = ssid.substring(0,ssid.indexOf('\"'));\nvar val = {linkQuality : linkQuality, signalLevel: signalLevel, ssid:ssid};\nglobal.set('linkQuality',linkQuality);\nglobal.set('signalLevel', signalLevel);\nglobal.set('ssid', ssid);\nreturn {topic :'test',payload : val};",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 900,
-        "y": 1400,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "501090a1fd5f88f5",
         "type": "link out",
         "z": "281e0a510310e9c6",
@@ -1485,103 +879,9 @@
         "links": [
             "04d132d87ffeb91a"
         ],
-        "x": 695,
-        "y": 480,
+        "x": 395,
+        "y": 520,
         "wires": []
-    },
-    {
-        "id": "3744a97333f32473",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 390,
-        "y": 340,
-        "wires": [
-            [
-                "93758a55568a2f76"
-            ]
-        ]
-    },
-    {
-        "id": "eec56d72bdbd1430",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 660,
-        "y": 520,
-        "wires": [
-            [
-                "2cd296fd87868cea"
-            ]
-        ]
-    },
-    {
-        "id": "95bf73e1f0d68181",
-        "type": "delay",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 320,
-        "y": 520,
-        "wires": [
-            [
-                "47de6287cc26419f"
-            ]
-        ]
-    },
-    {
-        "id": "b82f13a5e04e195a",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Pause Readings",
-        "func": "global.set('settingInProgress',true)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 160,
-        "y": 520,
-        "wires": [
-            [
-                "95bf73e1f0d68181"
-            ]
-        ]
     },
     {
         "id": "45409b1230e854cd",
@@ -1621,123 +921,27 @@
         ]
     },
     {
-        "id": "3026811a11de85fd",
-        "type": "serial out",
-        "z": "281e0a510310e9c6",
-        "name": "BlinkyBus Out",
-        "serial": "a4f4c59daf894823",
-        "x": 330,
-        "y": 1000,
-        "wires": []
-    },
-    {
-        "id": "930cf5038252d1fd",
-        "type": "serial in",
-        "z": "281e0a510310e9c6",
-        "name": "BlinkyBus In",
-        "serial": "a4f4c59daf894823",
-        "x": 510,
-        "y": 1000,
-        "wires": [
-            [
-                "1fc86ac13df1a13f"
-            ]
-        ]
-    },
-    {
-        "id": "9f8c3b4630e734a3",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "New Setting Out",
-        "mode": "link",
-        "links": [
-            "04d132d87ffeb91a"
-        ],
-        "x": 1035,
-        "y": 660,
-        "wires": []
-    },
-    {
-        "id": "5e7d2de841bcb0c1",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "g": "40e56362c23599cc",
-        "name": "Init Gizmo",
-        "func": "var tray = global.get('tray');\n\nvar msgs = [];\nmsgs[0] = {\"address\":0,\"value\":0};\nmsgs[1] = {\"address\":4,\"value\":tray.nsamples.value};\nmsgs[2] = {\"address\":5,\"value\":tray.nfilter.value};\nmsgs[3] = {\"address\":6,\"value\":0}; //device.powerOn.value\n//must be the last!\nmsgs[4] = {\"address\":-1,\"value\":0};\nreturn {topic : 'initDevice', payload: msgs};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1000,
-        "y": 1020,
-        "wires": [
-            [
-                "ebb5481bd4277b24"
-            ]
-        ]
-    },
-    {
-        "id": "352395cfbb5c4259",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "g": "cc88dacde90c32cd",
-        "name": "Create Readings",
-        "func": "var tray = global.get('tray');\nvar newData = true;\ntray.power.value                  = Math.round(1.414 * 48000 * msg.payload[2] / msg.payload[1]) / 10;\ntray.current.value                = Math.round(1.414 * 20000.0 * msg.payload[2] / msg.payload[1]) / 1000;\ntray.adcSampleRate.value          = msg.payload[3] / 1000;\ntray.nsamples.value               = msg.payload[4];\ntray.nfilter.value                = msg.payload[5];\ntray.powerOn.value                = msg.payload[6];\n\ntray.watchdog.value = tray.watchdog.value + 1;\nif (tray.watchdog.value > 32760) tray.watchdog.value = 0;\n\nvar writeTrayMsg = null;\n\nreturn  [{topic:msg.topic, payload:newData},writeTrayMsg]\n",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 630,
-        "y": 640,
-        "wires": [
-            [
-                "99fbe8135d0ce161"
-            ],
-            [
-                "d627c61f63b32aba"
-            ]
-        ]
-    },
-    {
         "id": "fcc98447c16c3949",
         "type": "function",
         "z": "281e0a510310e9c6",
         "g": "24d6701c4857e25e",
         "name": "Create Setting",
-        "func": "var tray = global.get('tray');\nvar blinkyBusSettingMsg = \n{\n    topic : msg.topic, \n    payload : { value: msg.payload.value,  'address': -1  } \n}\nvar blinkyBusMessage = false;\nswitch(msg.payload.cube)\n{\n    case 'nsamples':\n        blinkyBusSettingMsg.payload.address = 4;\n        blinkyBusMessage = true;\n        break;\n    case 'nfilter':\n        blinkyBusSettingMsg.payload.address = 5;\n        blinkyBusMessage = true;\n        break;\n    case 'powerOn':\n        blinkyBusSettingMsg.payload.address = 6;\n        blinkyBusMessage = true;\n        break;\n    case 'opState':\n        tray.opState.value  = msg.payload.value;\n        blinkyBusMessage = false;\n        break;\n    case 'startScheduleTime':\n        tray.startScheduleTime.value  = msg.payload.value;\n        blinkyBusMessage = false;\n        break;\n    case 'stopScheduleTime':\n        tray.stopScheduleTime.value  = msg.payload.value;\n        blinkyBusMessage = false;\n        break;\n    case 'maxRate':\n        tray.maxRate.value  = msg.payload.value;\n        blinkyBusMessage = false;\n        break;\n    default:\n        break;\n}\nvar msgArray = [null,null,null];\nif (blinkyBusMessage)\n{\n    global.set('settingInProgress',true);\n    var settingInProgressMsg = {topic:'settingInProgress', payload:true};\n    msgArray = [blinkyBusSettingMsg, settingInProgressMsg, null];\n    \n}\nelse\n{\n    global.set('settingInProgress',false);\n    msgArray = [null,null,{topic:'settingDone', payload:true, cube:msg.payload.cube}];\n}\nreturn msgArray;",
-        "outputs": 3,
+        "func": "var tray = global.get('tray');\ntray[msg.payload.cube].value = msg.payload.value;\nlet setRelayMsg = null;\nif (msg.payload.cube == \"setRelay\")\n{\n    setRelayMsg = { topic: \"setRelay\", payload: msg.payload.value}\n}\nreturn [{ topic: 'newSetting', payload: true },setRelayMsg];",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 380,
+        "x": 200,
+        "y": 320,
         "wires": [
             [
-                "3744a97333f32473"
-            ],
-            [
-                "a66ef2e5b482662a"
-            ],
-            [
                 "1e34df4b19ff22cc"
+            ],
+            [
+                "ce3dbcf1369c91ba"
             ]
         ]
-    },
-    {
-        "id": "d627c61f63b32aba",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Save motor location",
-        "mode": "link",
-        "links": [
-            "04d132d87ffeb91a"
-        ],
-        "x": 805,
-        "y": 680,
-        "wires": []
     },
     {
         "id": "0cd853d250156bc1",
@@ -1748,8 +952,8 @@
         "links": [
             "4bddb9a0e424ebf4"
         ],
-        "x": 635,
-        "y": 1540,
+        "x": 645,
+        "y": 1220,
         "wires": []
     },
     {
@@ -1773,8 +977,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 1540,
+        "x": 120,
+        "y": 1220,
         "wires": [
             [
                 "60e10e9b33fde6fd"
@@ -1803,8 +1007,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 250,
-        "y": 1540,
+        "x": 260,
+        "y": 1220,
         "wires": [
             [
                 "b4c29e5757f68938"
@@ -1819,14 +1023,14 @@
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Schedule Relay Control",
-        "func": "var tray = global.get('tray');\nif (global.get('settingInProgress')) return null;\nif (global.get('deviceInit') != 0) return null;\nvar now = new Date();\nvar hours = now.getHours();\nvar powerOn = 0;\nif (tray.startScheduleTime.value > tray.stopScheduleTime.value)\n{\n    if ((tray.startScheduleTime.value <= hours) && (minutes < 24) ) powerOn = 1;\n    if ((0 <= hours) && (hours < tray.stopScheduleTime.value) )     powerOn = 1;\n}\nelse\n{\n    if ((tray.startScheduleTime.value <= hours) && (hours < tray.stopScheduleTime.value) ) powerOn = 1;\n}\nif (powerOn ==  tray.powerOn.value) return null;\nreturn {topic : \"setting\", payload : {cube :\"powerOn\", value: powerOn} };",
+        "func": "var tray = global.get('tray');\nvar now = new Date();\nvar hours = now.getHours();\nvar setRelay = 0;\nif (tray.startScheduleTime.value > tray.stopScheduleTime.value)\n{\n    if ((tray.startScheduleTime.value <= hours) && (hours < 24) ) setRelay = 1;\n    if ((0 <= hours) && (hours < tray.stopScheduleTime.value)) setRelay = 1;\n}\nelse\n{\n    if ((tray.startScheduleTime.value <= hours) && (hours < tray.stopScheduleTime.value)) setRelay = 1;\n}\nif (setRelay == tray.setRelay.value) return null;\nreturn { topic: \"setting\", payload: { cube: \"setRelay\", value: setRelay} };",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 1520,
+        "x": 460,
+        "y": 1200,
         "wires": [
             [
                 "0cd853d250156bc1"
@@ -1854,8 +1058,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 1760,
+        "x": 120,
+        "y": 1440,
         "wires": [
             [
                 "25e72125efa7bdfa"
@@ -1879,8 +1083,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 260,
-        "y": 1760,
+        "x": 270,
+        "y": 1440,
         "wires": [
             [
                 "24f4af945e29f7c6"
@@ -1907,8 +1111,8 @@
         "onceDelay": "5",
         "topic": "",
         "payloadType": "date",
-        "x": 110,
-        "y": 1700,
+        "x": 120,
+        "y": 1380,
         "wires": [
             [
                 "24f4af945e29f7c6"
@@ -1923,8 +1127,8 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 290,
-        "y": 1860,
+        "x": 300,
+        "y": 1540,
         "wires": [
             [
                 "fb8cf079f15bee62"
@@ -1942,8 +1146,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 1860,
+        "x": 450,
+        "y": 1540,
         "wires": []
     },
     {
@@ -1960,8 +1164,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79250bf3.365cc4",
-        "x": 440,
-        "y": 1700,
+        "x": 450,
+        "y": 1380,
         "wires": []
     },
     {
@@ -1977,8 +1181,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 120,
-        "y": 1860,
+        "x": 130,
+        "y": 1540,
         "wires": [
             [
                 "a93e00778571e31f"
@@ -1990,18 +1194,204 @@
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Max Rate Relay Control",
-        "func": "var tray = global.get('tray');\nif (global.get('settingInProgress')) return null;\nif (global.get('deviceInit') != 0) return null;\nvar powerOn = 0;\nif (tray.maxRate.value >= global.get('espotPrice').price.value)\n{\n    powerOn = 1;\n}\nif (powerOn ==  tray.powerOn.value) return null;\nreturn {topic : \"setting\", payload : {cube :\"powerOn\", value: powerOn} };",
+        "func": "var tray = global.get('tray');\nvar setRelay = 0;\nif (tray.maxRate.value < global.get('espotPrice').price.value)\n{\n    setRelay = 1;\n}\nif (setRelay == tray.setRelay.value) return null;\nreturn { topic: \"setting\", payload: { cube: \"setRelay\", value: setRelay} };",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 1560,
+        "x": 460,
+        "y": 1240,
         "wires": [
             [
                 "0cd853d250156bc1"
             ]
         ]
+    },
+    {
+        "id": "ce3dbcf1369c91ba",
+        "type": "rpi-gpio out",
+        "z": "281e0a510310e9c6",
+        "name": "GPIO18",
+        "pin": "18",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 400,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "8346678269199f45",
+        "type": "inject",
+        "z": "281e0a510310e9c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "off",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 210,
+        "y": 400,
+        "wires": [
+            [
+                "ce3dbcf1369c91ba"
+            ]
+        ]
+    },
+    {
+        "id": "206a5544035b0209",
+        "type": "inject",
+        "z": "281e0a510310e9c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "on",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 210,
+        "y": 440,
+        "wires": [
+            [
+                "ce3dbcf1369c91ba"
+            ]
+        ]
+    },
+    {
+        "id": "a1698f8bfcc63203",
+        "type": "inject",
+        "z": "281e0a510310e9c6",
+        "name": "read Status",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "8",
+        "topic": "readTable",
+        "payloadType": "date",
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "b5aa124df51a8d82"
+            ]
+        ]
+    },
+    {
+        "id": "b5aa124df51a8d82",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Read BlinkyBus",
+        "func": "return {topic: \"readStatus\", payload:true};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 640,
+        "wires": [
+            [
+                "352395cfbb5c4259"
+            ]
+        ]
+    },
+    {
+        "id": "352395cfbb5c4259",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "g": "cc88dacde90c32cd",
+        "name": "Create Readings",
+        "func": "var tray = global.get('tray');\nvar newData = true;\n\ntray.watchdog.value = tray.watchdog.value + 1;\nif (tray.watchdog.value > 32760) tray.watchdog.value = 0;\ntray.timeStamp = new Date().getTime();\n\nreturn  {topic:msg.topic, payload:newData};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 640,
+        "wires": [
+            [
+                "99fbe8135d0ce161"
+            ]
+        ]
+    },
+    {
+        "id": "99fbe8135d0ce161",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Readings Alarm Scan",
+        "func": "var newData = msg.payload;\nvar tray = global.get('tray');\nvar alarmFlagReading = scalarAlarmScan(tray, 'reading');\nvar alarmFlagSetting = scalarAlarmScan(tray, 'setting');\nvar newMsg   = null;\nif (newData)\n{\n    newMsg = \n    {\n        topic: 'newData',\n        payload: true\n    }\n}\nreturn newMsg;\n\nfunction getActionArray(tray, type, actionType)\n{\n    var actionArray = [];\n    var keys = Object.keys(tray);\n    for (var ii = 0; ii < keys.length; ++ii)\n    {\n        if (tray[keys[ii]].hasOwnProperty('type'))\n        {\n            if (tray[keys[ii]].type == type)\n            {\n                if (tray[keys[ii]].action == actionType)\n                {\n                    actionArray.push(tray[keys[ii]]);\n                }\n            }\n        }\n    }\n    return actionArray;\n}\nfunction scalarAlarmScan(tray, actionType)\n{\n    var alarmFlag = false;\n    var actionArray = getActionArray(tray, 'scalar', actionType);\n    if (actionArray.length > 0)\n    {\n        for (var ii = 0; ii < actionArray.length; ++ii)\n        {\n            let oldAlarmValue = actionArray[ii].alarm.value;\n            actionArray[ii].alarm.value = 0;\n            if (!isNaN(actionArray[ii].value))\n            {\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.low)  actionArray[ii].alarm.value = 1;\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.lolo) actionArray[ii].alarm.value = 3;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.high) actionArray[ii].alarm.value = 2;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.hihi) actionArray[ii].alarm.value = 4;\n                if (actionArray[ii].alarm.value != oldAlarmValue) alarmFlag = true;\n            }\n        }\n    }\n    return alarmFlag;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastAlarm', -1);",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 640,
+        "wires": [
+            [
+                "f5d0568e288098ed"
+            ]
+        ]
+    },
+    {
+        "id": "f5d0568e288098ed",
+        "type": "link out",
+        "z": "281e0a510310e9c6",
+        "name": "Alarm Scan out",
+        "links": [
+            "45a97566b65c65cc",
+            "05c0c7b4f59ca88d"
+        ],
+        "x": 895,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "1e34df4b19ff22cc",
+        "type": "link out",
+        "z": "281e0a510310e9c6",
+        "name": "Setting Out",
+        "mode": "link",
+        "links": [
+            "04d132d87ffeb91a",
+            "45a97566b65c65cc"
+        ],
+        "x": 365,
+        "y": 300,
+        "wires": []
     }
 ]
