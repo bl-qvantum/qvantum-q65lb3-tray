@@ -28,26 +28,6 @@
         "h": 82
     },
     {
-        "id": "cc88dacde90c32cd",
-        "type": "group",
-        "z": "281e0a510310e9c6",
-        "name": "Edit Me",
-        "style": {
-            "stroke": "#000000",
-            "fill": "#9363b7",
-            "label": true,
-            "label-position": "n",
-            "color": "#ffff00"
-        },
-        "nodes": [
-            "352395cfbb5c4259"
-        ],
-        "x": 394,
-        "y": 599,
-        "w": 232,
-        "h": 82
-    },
-    {
         "id": "6ad7c930.1a06b8",
         "type": "ui_base",
         "theme": {
@@ -164,11 +144,38 @@
         "sessionExpiry": ""
     },
     {
+        "id": "4a8c3caa0ff9b87d",
+        "type": "modbus-client",
+        "name": "Slave",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": true,
+        "queueLogEnabled": false,
+        "failureLogEnabled": false,
+        "tcpHost": "192.168.0.10",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": false
+    },
+    {
         "id": "30f384ea.cf21fc",
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Save tray config in Memory",
-        "func": "msg.payload.watchdog.value = 0;\nmsg.payload.setRelay.value = 0;\nglobal.set('tray', msg.payload);\nreturn msg;",
+        "func": "msg.payload.watchdog.value = 0;\nglobal.set('tray', msg.payload);\nreturn msg;",
         "outputs": 0,
         "noerr": 0,
         "initialize": "",
@@ -344,8 +351,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "Restart",
-        "x": 680,
-        "y": 1020,
+        "x": 700,
+        "y": 1120,
         "wires": [
             [],
             [],
@@ -374,8 +381,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 290,
-        "y": 1040,
+        "x": 310,
+        "y": 1140,
         "wires": [
             [
                 "985cd59b3e414efe"
@@ -396,8 +403,8 @@
         "timer": "",
         "oldrc": false,
         "name": "Reboot",
-        "x": 480,
-        "y": 1080,
+        "x": 500,
+        "y": 1180,
         "wires": [
             [],
             [],
@@ -421,8 +428,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 140,
-        "y": 1040,
+        "x": 160,
+        "y": 1140,
         "wires": [
             [
                 "9e290594.69c548"
@@ -706,8 +713,8 @@
         "onceDelay": "20",
         "topic": "archiveClock",
         "payloadType": "date",
-        "x": 120,
-        "y": 780,
+        "x": 140,
+        "y": 880,
         "wires": [
             [
                 "6a9b2f2af2f7d084"
@@ -725,8 +732,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastArchive', new Date().getTime());",
         "finalize": "",
         "libs": [],
-        "x": 330,
-        "y": 780,
+        "x": 350,
+        "y": 880,
         "wires": [
             [
                 "d74e019a27b1a659"
@@ -753,8 +760,8 @@
         "links": [
             "72b5ca0e2043aba0"
         ],
-        "x": 35,
-        "y": 1040,
+        "x": 55,
+        "y": 1140,
         "wires": [
             [
                 "557e4f40.b904e"
@@ -772,8 +779,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 940,
+        "x": 330,
+        "y": 1040,
         "wires": []
     },
     {
@@ -797,8 +804,8 @@
         "topic": "pm2Name",
         "payload": "PM2NAME",
         "payloadType": "env",
-        "x": 110,
-        "y": 940,
+        "x": 130,
+        "y": 1040,
         "wires": [
             [
                 "6af76a294daa96eb"
@@ -816,8 +823,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 1020,
+        "x": 520,
+        "y": 1120,
         "wires": [
             [
                 "c0939e4a.6386f"
@@ -844,8 +851,8 @@
         "onceDelay": 0.1,
         "topic": "archiveNow",
         "payloadType": "date",
-        "x": 110,
-        "y": 840,
+        "x": 130,
+        "y": 940,
         "wires": [
             [
                 "76d6712bed883108"
@@ -863,8 +870,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastArchive', new Date().getTime());",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 840,
+        "x": 330,
+        "y": 940,
         "wires": [
             [
                 "d74e019a27b1a659"
@@ -897,8 +904,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79250bf3.365cc4",
-        "x": 740,
-        "y": 780,
+        "x": 760,
+        "y": 880,
         "wires": []
     },
     {
@@ -912,8 +919,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 550,
-        "y": 780,
+        "x": 570,
+        "y": 880,
         "wires": [
             [
                 "45409b1230e854cd"
@@ -926,8 +933,8 @@
         "z": "281e0a510310e9c6",
         "g": "24d6701c4857e25e",
         "name": "Create Setting",
-        "func": "var tray = global.get('tray');\ntray[msg.payload.cube].value = msg.payload.value;\nlet setRelayMsg = null;\nif (msg.payload.cube == \"setRelay\")\n{\n    setRelayMsg = { topic: \"setRelay\", payload: msg.payload.value}\n}\nreturn [{ topic: 'newSetting', payload: true },setRelayMsg];",
-        "outputs": 2,
+        "func": "var tray = global.get('tray');\ntray[msg.payload.cube].value = msg.payload.value;\nreturn { topic: 'newSetting', payload: true };",
+        "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -937,103 +944,6 @@
         "wires": [
             [
                 "1e34df4b19ff22cc"
-            ],
-            [
-                "ce3dbcf1369c91ba"
-            ]
-        ]
-    },
-    {
-        "id": "0cd853d250156bc1",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Set rheostatOff Pos",
-        "mode": "link",
-        "links": [
-            "4bddb9a0e424ebf4"
-        ],
-        "x": 645,
-        "y": 1220,
-        "wires": []
-    },
-    {
-        "id": "189057719d79e3f4",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "Every 1 min",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "10",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "60",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 1220,
-        "wires": [
-            [
-                "60e10e9b33fde6fd"
-            ]
-        ]
-    },
-    {
-        "id": "60e10e9b33fde6fd",
-        "type": "switch",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "property": "tray.opState.value",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 260,
-        "y": 1220,
-        "wires": [
-            [
-                "b4c29e5757f68938"
-            ],
-            [
-                "5e8d78ca0d789ac4"
-            ]
-        ]
-    },
-    {
-        "id": "b4c29e5757f68938",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Schedule Relay Control",
-        "func": "var tray = global.get('tray');\nvar now = new Date();\nvar hours = now.getHours();\nvar setRelay = 0;\nif (tray.startScheduleTime.value > tray.stopScheduleTime.value)\n{\n    if ((tray.startScheduleTime.value <= hours) && (hours < 24) ) setRelay = 1;\n    if ((0 <= hours) && (hours < tray.stopScheduleTime.value)) setRelay = 1;\n}\nelse\n{\n    if ((tray.startScheduleTime.value <= hours) && (hours < tray.stopScheduleTime.value)) setRelay = 1;\n}\n//if (setRelay == tray.setRelay.value) return null;\nreturn { topic: \"setting\", payload: { cube: \"setRelay\", value: setRelay} };",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 1200,
-        "wires": [
-            [
-                "0cd853d250156bc1"
             ]
         ]
     },
@@ -1058,8 +968,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 1440,
+        "x": 130,
+        "y": 1360,
         "wires": [
             [
                 "25e72125efa7bdfa"
@@ -1083,8 +993,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 270,
-        "y": 1440,
+        "x": 280,
+        "y": 1360,
         "wires": [
             [
                 "24f4af945e29f7c6"
@@ -1111,8 +1021,8 @@
         "onceDelay": "5",
         "topic": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 1380,
+        "x": 130,
+        "y": 1300,
         "wires": [
             [
                 "24f4af945e29f7c6"
@@ -1127,8 +1037,8 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 300,
-        "y": 1540,
+        "x": 310,
+        "y": 1460,
         "wires": [
             [
                 "fb8cf079f15bee62"
@@ -1146,8 +1056,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 1540,
+        "x": 460,
+        "y": 1460,
         "wires": []
     },
     {
@@ -1164,8 +1074,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79250bf3.365cc4",
-        "x": 450,
-        "y": 1380,
+        "x": 460,
+        "y": 1300,
         "wires": []
     },
     {
@@ -1181,103 +1091,11 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 130,
-        "y": 1540,
+        "x": 140,
+        "y": 1460,
         "wires": [
             [
                 "a93e00778571e31f"
-            ]
-        ]
-    },
-    {
-        "id": "5e8d78ca0d789ac4",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Max Rate Relay Control",
-        "func": "var tray = global.get('tray');\nvar setRelay = 0;\nif (tray.maxRate.value < global.get('espotPrice').price.value)\n{\n    setRelay = 1;\n}\n//if (setRelay == tray.setRelay.value) return null;\nreturn { topic: \"setting\", payload: { cube: \"setRelay\", value: setRelay} };",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 1240,
-        "wires": [
-            [
-                "0cd853d250156bc1"
-            ]
-        ]
-    },
-    {
-        "id": "ce3dbcf1369c91ba",
-        "type": "rpi-gpio out",
-        "z": "281e0a510310e9c6",
-        "name": "GPIO18",
-        "pin": "18",
-        "set": true,
-        "level": "0",
-        "freq": "",
-        "out": "out",
-        "bcm": true,
-        "x": 400,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "8346678269199f45",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "off",
-        "payload": "0",
-        "payloadType": "num",
-        "x": 210,
-        "y": 400,
-        "wires": [
-            [
-                "ce3dbcf1369c91ba"
-            ]
-        ]
-    },
-    {
-        "id": "206a5544035b0209",
-        "type": "inject",
-        "z": "281e0a510310e9c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "on",
-        "payload": "1",
-        "payloadType": "num",
-        "x": 210,
-        "y": 440,
-        "wires": [
-            [
-                "ce3dbcf1369c91ba"
             ]
         ]
     },
@@ -1295,56 +1113,18 @@
                 "vt": "str"
             }
         ],
-        "repeat": "2",
+        "repeat": "4",
         "crontab": "",
         "once": true,
         "onceDelay": "8",
         "topic": "readTable",
+        "payload": "",
         "payloadType": "date",
         "x": 110,
         "y": 640,
         "wires": [
             [
-                "b5aa124df51a8d82"
-            ]
-        ]
-    },
-    {
-        "id": "b5aa124df51a8d82",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "name": "Read BlinkyBus",
-        "func": "return {topic: \"readStatus\", payload:true};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 280,
-        "y": 640,
-        "wires": [
-            [
-                "352395cfbb5c4259"
-            ]
-        ]
-    },
-    {
-        "id": "352395cfbb5c4259",
-        "type": "function",
-        "z": "281e0a510310e9c6",
-        "g": "cc88dacde90c32cd",
-        "name": "Create Readings",
-        "func": "var tray = global.get('tray');\nvar newData = true;\n\ntray.watchdog.value = tray.watchdog.value + 1;\nif (tray.watchdog.value > 32760) tray.watchdog.value = 0;\ntray.timeStamp = new Date().getTime();\n\nreturn  {topic:msg.topic, payload:newData};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 510,
-        "y": 640,
-        "wires": [
-            [
-                "99fbe8135d0ce161"
+                "bfb2ae23375de0ae"
             ]
         ]
     },
@@ -1359,8 +1139,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastAlarm', -1);",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 640,
+        "x": 1260,
+        "y": 720,
         "wires": [
             [
                 "f5d0568e288098ed"
@@ -1376,8 +1156,8 @@
             "45a97566b65c65cc",
             "05c0c7b4f59ca88d"
         ],
-        "x": 895,
-        "y": 640,
+        "x": 1435,
+        "y": 720,
         "wires": []
     },
     {
@@ -1390,8 +1170,307 @@
             "04d132d87ffeb91a",
             "45a97566b65c65cc"
         ],
-        "x": 365,
-        "y": 300,
+        "x": 355,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bfb2ae23375de0ae",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read Holding 20-136",
+        "func": "var modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 20 , 'quantity': 117 } ;\nreturn {topic: \"h_20_117\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 640,
+        "wires": [
+            [
+                "9c84627a90a0bb85"
+            ]
+        ]
+    },
+    {
+        "id": "9c84627a90a0bb85",
+        "type": "modbus-flex-getter",
+        "z": "281e0a510310e9c6",
+        "name": "Read Modbus",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "logIOActivities": false,
+        "server": "4a8c3caa0ff9b87d",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 560,
+        "y": 640,
+        "wires": [
+            [],
+            [
+                "742a890ac8fe3017"
+            ]
+        ]
+    },
+    {
+        "id": "386db633a1f7401c",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Parse Holding 20 to 136",
+        "func": "let tray = global.get('tray');\ntray.startLevelCompressor.value     = checkData(msg.payload.data[0], 1);\ntray.stopLevelCompressor.value      = checkData(msg.payload.data[1], 1);\ntray.analogComp0.value              = checkData(msg.payload.data[2], 1);\ntray.analogComp100.value            = checkData(msg.payload.data[3], 1);\ntray.startLevelTillsats.value       = checkData(msg.payload.data[4], 1);\ntray.startTempHeatIn.value          = checkData(msg.payload.data[10], 10);\ntray.startTempHeatInHy.value        = checkData(msg.payload.data[11], 10);\ntray.startTempHotWater.value        = checkData(msg.payload.data[13], 10);\ntray.startTempHotWaterHy.value      = checkData(msg.payload.data[14], 10);\ntray.solenoidSet.value              = checkData(msg.payload.data[16], 10);\ntray.solenoidStop.value             = checkData(msg.payload.data[17], 10);\ntray.curve0C.value                  = checkData(msg.payload.data[20], 10);\ntray.curve20C.value                 = checkData(msg.payload.data[21], 10);\ntray.summerDownDelay.value          = checkData(msg.payload.data[25], 1);\ntray.summStopTemp.value             = checkData(msg.payload.data[26], 10);\ntray.minBegrIntro.value             = checkData(msg.payload.data[28], 10);\ntray.maxBegrIntro.value             = checkData(msg.payload.data[29], 10);\ntray.defrostBlocking.value          = checkData(msg.payload.data[31], 10);\ntray.defrostLoadTemp.value          = checkData(msg.payload.data[33], 10);\ntray.outTempBlock.value             = checkData(msg.payload.data[34], 10);\ntray.fanSet.value                   = checkData(msg.payload.data[100], 1);\ntray.fanMax.value                   = checkData(msg.payload.data[104], 10);\ntray.LB3ValveMax.value              = checkData(msg.payload.data[113], 10);\ntray.LB3ValveSet.value              = checkData(msg.payload.data[114], 10);\ntray.LB3ValveDelay.value            = checkData(msg.payload.data[116], 1);\n\nreturn msg;\nfunction checkData(rawVal,resolution)\n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 560,
+        "wires": [
+            [
+                "abb72e8f7ab115e3"
+            ]
+        ]
+    },
+    {
+        "id": "abb72e8f7ab115e3",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read Holding 202",
+        "func": "var modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 202 , 'quantity': 1 } ;\nreturn { topic: \"h_202_202\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 560,
+        "wires": [
+            [
+                "0820f3d0a0b2721e"
+            ]
+        ]
+    },
+    {
+        "id": "1b248eea812fabd1",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Parse Holding 202",
+        "func": "let tray = global.get('tray');\ntray.defrostMaxTime.value     = checkData(msg.payload.data[0], 1);\n\nreturn msg;\nfunction checkData(rawVal,resolution)\n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 600,
+        "wires": [
+            [
+                "42daebaf3cb6a4e5"
+            ]
+        ]
+    },
+    {
+        "id": "42daebaf3cb6a4e5",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read Holding 2032 - 2054",
+        "func": "var modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 2032 , 'quantity': 23 } ;\nreturn { topic: \"h_2032_2054\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 600,
+        "wires": [
+            [
+                "0820f3d0a0b2721e"
+            ]
+        ]
+    },
+    {
+        "id": "ed94891d3263d8d9",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Parse Holding 2032-2054",
+        "func": "let tray = global.get('tray');\ntray.extSetpoint.value      = checkData(msg.payload.data[0],  1);\ntray.extOutsideTemp.value   = checkData(msg.payload.data[1],  1);\ntray.externalBlocking.value = checkData(msg.payload.data[22], 1);\n\nreturn msg;\nfunction checkData(rawVal,resolution)\n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 640,
+        "wires": [
+            [
+                "61732e8d6c809d6a"
+            ]
+        ]
+    },
+    {
+        "id": "61732e8d6c809d6a",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read Input 1300-1304",
+        "func": "var modeBusCommand = { 'fc': 0x4, 'unitid': 1, 'address': 1300 , 'quantity': 5 } ;\nreturn { topic: \"i_1300_1304\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 640,
+        "wires": [
+            [
+                "0820f3d0a0b2721e"
+            ]
+        ]
+    },
+    {
+        "id": "aee8f924f8d9a2bc",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Parse Input 1300-1304",
+        "func": "let tray = global.get('tray');\ntray.lowPressure.value     = checkData(msg.payload.data[0], 10);\ntray.suctionGas.value      = checkData(msg.payload.data[1], 10);\ntray.evapTemp.value        = checkData(msg.payload.data[4], 10);\n\nreturn msg;\nfunction checkData(rawVal,resolution)\n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 680,
+        "wires": [
+            [
+                "489507fab5c7633c"
+            ]
+        ]
+    },
+    {
+        "id": "489507fab5c7633c",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read Input 2001-2063",
+        "func": "var modeBusCommand = { 'fc': 0x4, 'unitid': 1, 'address': 2001 , 'quantity': 63 } ;\nreturn { topic: \"i_2001_2063\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 680,
+        "wires": [
+            [
+                "0820f3d0a0b2721e"
+            ]
+        ]
+    },
+    {
+        "id": "a768236db09f5f6b",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "name": "Parse Input 2001-2063",
+        "func": "let tray = global.get('tray');\ntray.defrostTank.value        = checkData(msg.payload.data[0], 10);\ntray.coolIn.value             = checkData(msg.payload.data[1], 10);\ntray.coolOut.value            = checkData(msg.payload.data[2], 10);\ntray.heatIn.value             = checkData(msg.payload.data[3], 10);\ntray.heatOut.value            = checkData(msg.payload.data[4], 10);\ntray.hotGas.value             = checkData(msg.payload.data[5], 10);\ntray.radiatorFeed.value       = checkData(msg.payload.data[6], 10);\ntray.hotWater.value           = checkData(msg.payload.data[7], 10);\ntray.outdoorTemp.value        = checkData(msg.payload.data[8], 10);\ntray.radiatorReturn.value     = checkData(msg.payload.data[9], 10);\ntray.curveSetPoint.value      = checkData(msg.payload.data[29], 1);\ntray.heatBalance.value        = checkData(msg.payload.data[30], 1);\ntray.afterTankSG.value        = checkData(msg.payload.data[59], 100);\ntray.evapFan.value            = checkData(msg.payload.data[60], 100);\ntray.condenserValve.value     = checkData(msg.payload.data[61], 100);\ntray.addHeatSG.value          = checkData(msg.payload.data[62], 100);\n\ntray.aAlarm.value   = msg.payload.data[49];\ntray.bAlarm.value   = msg.payload.data[51];\ntray.opStatus.value = msg.payload.data[53];\n\nlet aArray = getBits(tray.aAlarm.value);\ntray.lowPressGas.value       = aArray[1];\ntray.highPressGas.value      = aArray[2];\ntray.fpCoolIn.value          = aArray[3];\ntray.heatCarryReturnIn.value = aArray[4];\ntray.hotGasHi.value          = aArray[5];\ntray.engineProtect.value     = aArray[6];\ntray.afans.value             = aArray[7];\ntray.masterComm.value        = aArray[8];\ntray.masterKBP.value         = aArray[9];\n\naArray = getBits(tray.bAlarm.value);\ntray.hiReturn.value             = aArray[1];\ntray.hiHotGas.value             = aArray[2];\ntray.evapFan1.value             = aArray[3];\ntray.evapFan2.value             = aArray[4];\ntray.lowOutTempStop.value       = aArray[5];\ntray.battery.value              = aArray[6];\ntray.aftCartridgeFuse.value     = aArray[7];\ntray.extPumpFuse.value          = aArray[8];\ntray.extAlarmB1.value           = aArray[9];\ntray.extAlarmB2.value           = aArray[10];\n\naArray = getBits(tray.opStatus.value);\ntray.compressor.value           = aArray[0];\ntray.coolantPump.value          = aArray[1];\ntray.defrostActive.value        = aArray[2];\ntray.heatCarrierPump.value      = aArray[3];\ntray.hotWaterDiverter.value     = aArray[4];\ntray.addHeat.value              = aArray[5];\ntray.radiatorPump.value         = aArray[6];\n\ntray.watchdog.value = tray.watchdog.value + 1;\nif (tray.watchdog.value > 32760) tray.watchdog.value = 0;\ntray.timeStamp = new Date().getTime();\n\nreturn {topic:'newData',payload:true};\nfunction checkData(rawVal,resolution)\n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}\nfunction getBits(alarmNumber)\n{\n    let base2 = alarmNumber.toString(2);\n    let upBase2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];\n    for (let ii = 0; ii < base2.length; ++ii) \n    {\n        upBase2[ii] = Number(base2[base2.length - ii - 1]);\n    }\n    return upBase2;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 720,
+        "wires": [
+            [
+                "99fbe8135d0ce161"
+            ]
+        ]
+    },
+    {
+        "id": "742a890ac8fe3017",
+        "type": "switch",
+        "z": "281e0a510310e9c6",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "h_20_117",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "h_202_202",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "h_2032_2054",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "i_1300_1304",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "i_2001_2063",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 730,
+        "y": 640,
+        "wires": [
+            [
+                "386db633a1f7401c"
+            ],
+            [
+                "1b248eea812fabd1"
+            ],
+            [
+                "ed94891d3263d8d9"
+            ],
+            [
+                "aee8f924f8d9a2bc"
+            ],
+            [
+                "a768236db09f5f6b"
+            ]
+        ]
+    },
+    {
+        "id": "03a043caa3e7abbf",
+        "type": "link in",
+        "z": "281e0a510310e9c6",
+        "name": "Read Modbus",
+        "links": [
+            "0820f3d0a0b2721e"
+        ],
+        "x": 445,
+        "y": 700,
+        "wires": [
+            [
+                "9c84627a90a0bb85"
+            ]
+        ]
+    },
+    {
+        "id": "0820f3d0a0b2721e",
+        "type": "link out",
+        "z": "281e0a510310e9c6",
+        "name": "Setup Read",
+        "mode": "link",
+        "links": [
+            "03a043caa3e7abbf"
+        ],
+        "x": 1435,
+        "y": 620,
         "wires": []
     }
 ]
