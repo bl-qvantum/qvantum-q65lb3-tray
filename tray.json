@@ -2,11 +2,11 @@
   "type": "qvantum-q65llb3",
   "name": "simrishamn",
   "arcPeriod": 60000,
-  "timeStamp": 1669961174941,
+  "timeStamp": 1670060799788,
   "watchdog": {
     "action": "reading",
     "type": "scalar",
-    "value": 44,
+    "value": 8,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -111,7 +111,7 @@
   "lowPressure": {
     "action": "reading",
     "type": "scalar",
-    "value": 2.9,
+    "value": 4.1,
     "unit": "bar",
     "alarm": {
       "value": 0,
@@ -131,7 +131,7 @@
   "suctionGas": {
     "action": "reading",
     "type": "scalar",
-    "value": -0.9,
+    "value": 9.7,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -151,7 +151,7 @@
   "evapTemp": {
     "action": "reading",
     "type": "scalar",
-    "value": -5,
+    "value": 3,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -171,7 +171,7 @@
   "defrostTank": {
     "action": "reading",
     "type": "scalar",
-    "value": 48.6,
+    "value": 49.4,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -191,7 +191,7 @@
   "coolIn": {
     "action": "reading",
     "type": "scalar",
-    "value": 0.3,
+    "value": 1.1,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -211,7 +211,7 @@
   "coolOut": {
     "action": "reading",
     "type": "scalar",
-    "value": -2.9,
+    "value": 6.2,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -231,7 +231,7 @@
   "heatIn": {
     "action": "reading",
     "type": "scalar",
-    "value": 42.9,
+    "value": 45.4,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -251,7 +251,7 @@
   "heatOut": {
     "action": "reading",
     "type": "scalar",
-    "value": 53.8,
+    "value": 48.4,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -271,7 +271,7 @@
   "hotGas": {
     "action": "reading",
     "type": "scalar",
-    "value": 105,
+    "value": 56,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -291,7 +291,7 @@
   "radiatorFeed": {
     "action": "reading",
     "type": "scalar",
-    "value": 32.2,
+    "value": 32.1,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -331,7 +331,7 @@
   "outdoorTemp": {
     "action": "reading",
     "type": "scalar",
-    "value": 3.5,
+    "value": 2.9,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -351,7 +351,7 @@
   "radiatorReturn": {
     "action": "reading",
     "type": "scalar",
-    "value": 25.5,
+    "value": 25.8,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -371,10 +371,10 @@
   "curveSetPoint": {
     "action": "reading",
     "type": "scalar",
-    "value": 32.4,
+    "value": 32.8,
     "unit": "",
     "alarm": {
-      "value": 3,
+      "value": 0,
       "limits": {
         "lolo": 30,
         "low": 31,
@@ -391,10 +391,10 @@
   "heatBalance": {
     "action": "reading",
     "type": "scalar",
-    "value": 30,
+    "value": 23,
     "unit": "",
     "alarm": {
-      "value": 2,
+      "value": 0,
       "limits": {
         "lolo": 15,
         "low": 20,
@@ -831,7 +831,7 @@
   "opStatus": {
     "action": "reading",
     "type": "scalar",
-    "value": 75,
+    "value": 72,
     "unit": "",
     "alarm": {
       "value": 4,
@@ -851,7 +851,7 @@
   "compressor": {
     "action": "reading",
     "type": "scalar",
-    "value": 1,
+    "value": 0,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -871,7 +871,7 @@
   "coolantPump": {
     "action": "reading",
     "type": "scalar",
-    "value": 1,
+    "value": 0,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -991,7 +991,7 @@
   "afterTankSG": {
     "action": "reading",
     "type": "scalar",
-    "value": 2.66,
+    "value": 2.43,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -1011,7 +1011,7 @@
   "evapFan": {
     "action": "reading",
     "type": "scalar",
-    "value": 10,
+    "value": 0,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -1631,7 +1631,7 @@
   "externalBlocking": {
     "action": "setting",
     "type": "scalar",
-    "value": 75,
+    "value": 72,
     "unit": "",
     "alarm": {
       "value": 0,

@@ -23,8 +23,28 @@
             "fcc98447c16c3949"
         ],
         "x": 94,
-        "y": 279,
+        "y": 319,
         "w": 212,
+        "h": 82
+    },
+    {
+        "id": "2e3bf4351b6eb1e9",
+        "type": "group",
+        "z": "281e0a510310e9c6",
+        "name": "Edit Me",
+        "style": {
+            "stroke": "#000000",
+            "fill": "#9363b7",
+            "label": true,
+            "label-position": "n",
+            "color": "#ffff00"
+        },
+        "nodes": [
+            "3f594171d5aa07ab"
+        ],
+        "x": 654,
+        "y": 299,
+        "w": 252,
         "h": 82
     },
     {
@@ -274,7 +294,7 @@
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Init flow Variables",
-        "func": "var mqttSplit = msg.payload.split('/');\nvar trayProps = {\n    box         :   mqttSplit[0],\n    type        :   mqttSplit[1],\n    name        :   mqttSplit[2],\n};\nglobal.set('trayProps',trayProps);\nreturn {topic: 'readFile', payload:true};",
+        "func": "var mqttSplit = msg.payload.split('/');\nvar trayProps = {\n    box         :   mqttSplit[0],\n    type        :   mqttSplit[1],\n    name        :   mqttSplit[2],\n};\nglobal.set('trayProps',trayProps);\nglobal.set('settingInProgress', false);\nreturn {topic: 'readFile', payload:true};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -298,8 +318,8 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1270,
-        "y": 420,
+        "x": 1370,
+        "y": 480,
         "wires": [
             []
         ]
@@ -315,8 +335,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1080,
-        "y": 420,
+        "x": 1180,
+        "y": 480,
         "wires": [
             [
                 "168ce872.83d788"
@@ -450,8 +470,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79250bf3.365cc4",
-        "x": 1230,
-        "y": 340,
+        "x": 1330,
+        "y": 420,
         "wires": []
     },
     {
@@ -477,7 +497,7 @@
             "0cd853d250156bc1"
         ],
         "x": 55,
-        "y": 320,
+        "y": 360,
         "wires": [
             [
                 "fcc98447c16c3949"
@@ -563,8 +583,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1050,
-        "y": 340,
+        "x": 1150,
+        "y": 420,
         "wires": [
             [
                 "5152879001ec63ea"
@@ -578,7 +598,6 @@
         "name": "Publish Tray In",
         "links": [
             "0bf699584a2609d5",
-            "1e34df4b19ff22cc",
             "6af21e76e0c4ad80",
             "86aff585d6d97f09",
             "91cded1b31446957",
@@ -587,10 +606,12 @@
             "f0c1e263384a520f",
             "f5d0568e288098ed",
             "3fc0261f194a7067",
-            "396e4a58f43bbdef"
+            "396e4a58f43bbdef",
+            "de9724337ab6b427",
+            "184fe4c567bcfc8d"
         ],
-        "x": 935,
-        "y": 340,
+        "x": 1035,
+        "y": 420,
         "wires": [
             [
                 "f75b9887786b11c4"
@@ -666,14 +687,15 @@
         "links": [
             "6af21e76e0c4ad80",
             "501090a1fd5f88f5",
-            "1e34df4b19ff22cc",
             "75aab98047eea696",
             "344a2a68c26672b2",
             "9f8c3b4630e734a3",
-            "d627c61f63b32aba"
+            "d627c61f63b32aba",
+            "de9724337ab6b427",
+            "184fe4c567bcfc8d"
         ],
-        "x": 935,
-        "y": 420,
+        "x": 1035,
+        "y": 480,
         "wires": [
             [
                 "89892a30.598e28"
@@ -933,17 +955,20 @@
         "z": "281e0a510310e9c6",
         "g": "24d6701c4857e25e",
         "name": "Create Setting",
-        "func": "var tray = global.get('tray');\ntray[msg.payload.cube].value = msg.payload.value;\nreturn { topic: 'newSetting', payload: true };",
-        "outputs": 1,
+        "func": "var tray = global.get('tray');\nvar modbusSettingMsg =\n{\n    topic: msg.topic,\n    payload: { value: 0, 'fc': 0x6, 'unitid': 1, 'address': -1, 'quantity': 1 }\n}\nvar modbusMessage = false;\n/*\n*/\n\n\nlet testVal = 0;\n\nswitch (msg.payload.cube) \n{\n    case 'startLevelCompressor':\n        modbusSettingMsg.payload.address = 20;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'stopLevelCompressor':\n        modbusSettingMsg.payload.address = 21;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'analogComp0':\n        modbusSettingMsg.payload.address = 22;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'analogComp100':\n        modbusSettingMsg.payload.address = 23;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'startLevelTillsats':\n        modbusSettingMsg.payload.address = 24;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'startTempHeatIn':\n        modbusSettingMsg.payload.address = 30;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'startTempHeatInHy':\n        modbusSettingMsg.payload.address = 31;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'startTempHotWater':\n        modbusSettingMsg.payload.address = 33;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'startTempHotWaterHy':\n        modbusSettingMsg.payload.address = 34;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'solenoidSet':\n        modbusSettingMsg.payload.address = 36;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'solenoidStop':\n        modbusSettingMsg.payload.address = 37;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'curve0C':\n        modbusSettingMsg.payload.address = 40;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'curve20C':\n        modbusSettingMsg.payload.address = 41;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'summerDownDelay':\n        modbusSettingMsg.payload.address = 45;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'summStopTemp':\n        modbusSettingMsg.payload.address = 46;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'minBegrIntro':\n        modbusSettingMsg.payload.address = 48;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'maxBegrIntro':\n        modbusSettingMsg.payload.address = 49;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'defrostBlocking':\n        modbusSettingMsg.payload.address = 51;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'defrostLoadTemp':\n        modbusSettingMsg.payload.address = 53;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'outTempBlock':\n        modbusSettingMsg.payload.address = 54;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'fanSet':\n        modbusSettingMsg.payload.address = 120;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'fanMax':\n        modbusSettingMsg.payload.address = 124;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'LB3ValveMax':\n        modbusSettingMsg.payload.address = 133;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'LB3ValveSet':\n        modbusSettingMsg.payload.address = 134;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'LB3ValveDelay':\n        modbusSettingMsg.payload.address = 136;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'defrostMaxTime':\n        modbusSettingMsg.payload.address = 202;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'extSetpoint':\n        modbusSettingMsg.payload.address = 2032;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'extOutsideTemp':\n        modbusSettingMsg.payload.address = 2033;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 10);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'externalBlocking':\n        modbusSettingMsg.payload.address = 2054;\n        modbusSettingMsg.payload.value = prepareData(msg.payload.value, 1);\n        if (modbusSettingMsg.value < 0) return null;\n        modbusMessage = true;\n        break;\n    case 'nonModbusSetting':\n        tray.nonModbusSetting.value = msg.payload.value;\n        modbusMessage = false;\n        break;\n    default:\n        break;\n}\nvar msgArray = [null, null];\nif (modbusMessage) \n{\n    global.set('settingInProgress', true);\n    msgArray = [modbusSettingMsg, null];\n}\nelse {\n    global.set('settingInProgress', false);\n    msgArray = [null, { topic: 'settingDone', payload: true }];\n}\nreturn msgArray;\n\nfunction prepareData(engVal, resolution) \n{\n    if (isNaN(engVal)) return -1;\n    let newVal = engVal;\n    newVal = Math.round(newVal * resolution);\n    if (newVal < 0) newVal = newVal + 65536;\n    if (newVal < 0) return -1;\n    if (newVal >= 65536) return -1;\n    return newVal;\n}",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 200,
-        "y": 320,
+        "y": 360,
         "wires": [
             [
-                "1e34df4b19ff22cc"
+                "3744a97333f32473"
+            ],
+            [
+                "de9724337ab6b427"
             ]
         ]
     },
@@ -1161,25 +1186,11 @@
         "wires": []
     },
     {
-        "id": "1e34df4b19ff22cc",
-        "type": "link out",
-        "z": "281e0a510310e9c6",
-        "name": "Setting Out",
-        "mode": "link",
-        "links": [
-            "04d132d87ffeb91a",
-            "45a97566b65c65cc"
-        ],
-        "x": 355,
-        "y": 320,
-        "wires": []
-    },
-    {
         "id": "bfb2ae23375de0ae",
         "type": "function",
         "z": "281e0a510310e9c6",
         "name": "Setup Read Holding 20-136",
-        "func": "var modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 20 , 'quantity': 117 } ;\nreturn {topic: \"h_20_117\", payload:modeBusCommand};\n",
+        "func": "if (global.get('settingInProgress')) return null;\nvar modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 20 , 'quantity': 117 } ;\nreturn {topic: \"h_20_117\", payload:modeBusCommand};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1471,6 +1482,99 @@
         ],
         "x": 1435,
         "y": 620,
+        "wires": []
+    },
+    {
+        "id": "de9724337ab6b427",
+        "type": "link out",
+        "z": "281e0a510310e9c6",
+        "name": "nonBlinkybusSetting Out",
+        "mode": "link",
+        "links": [
+            "04d132d87ffeb91a",
+            "45a97566b65c65cc",
+            "05c0c7b4f59ca88d"
+        ],
+        "x": 355,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "4402bc5ad5b005a3",
+        "type": "modbus-flex-write",
+        "z": "281e0a510310e9c6",
+        "name": "Set Modbus",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "server": "4a8c3caa0ff9b87d",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 570,
+        "y": 340,
+        "wires": [
+            [],
+            [
+                "3f594171d5aa07ab"
+            ]
+        ]
+    },
+    {
+        "id": "3744a97333f32473",
+        "type": "delay",
+        "z": "281e0a510310e9c6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "4402bc5ad5b005a3"
+            ]
+        ]
+    },
+    {
+        "id": "3f594171d5aa07ab",
+        "type": "function",
+        "z": "281e0a510310e9c6",
+        "g": "2e3bf4351b6eb1e9",
+        "name": "Check Modbus Setting",
+        "func": "var tray = global.get('tray');\nglobal.set('settingInProgress',false);\n\nswitch(msg.payload.address)\n{\n    case 20:\n        tray.startLevelCompressor.value = checkData(msg.payload.value, 1);\n        break;\n    case 21:\n        tray.stopLevelCompressor.value = checkData(msg.payload.value, 1);\n        break;\n    case 22:\n        tray.analogComp0.value = checkData(msg.payload.value, 1);\n        break;\n    case 23:\n        tray.analogComp100.value = checkData(msg.payload.value, 1);\n        break;\n    case 24:\n        tray.startLevelTillsats.value = checkData(msg.payload.value, 1);\n        break;\n    case 30:\n        tray.startTempHeatIn.value = checkData(msg.payload.value, 10);\n        break;\n    case 31:\n        tray.startTempHeatInHy.value = checkData(msg.payload.value, 10);\n        break;\n    case 33:\n        tray.startTempHotWater.value = checkData(msg.payload.value, 10);\n        break;\n    case 34:\n        tray.startTempHotWaterHy.value = checkData(msg.payload.value, 10);\n        break;\n    case 36:\n        tray.solenoidSet.value = checkData(msg.payload.value, 10);\n        break;\n    case 37:\n        tray.solenoidStop.value = checkData(msg.payload.value, 10);\n        break;\n    case 40:\n        tray.curve0C.value = checkData(msg.payload.value, 10);\n        break;\n    case 41:\n        tray.curve20C.value = checkData(msg.payload.value, 10);\n        break;\n    case 45:\n        tray.summerDownDelay.value = checkData(msg.payload.value, 1);\n        break;\n    case 46:\n        tray.summStopTemp.value = checkData(msg.payload.value, 10);\n        break;\n    case 48:\n        tray.minBegrIntro.value = checkData(msg.payload.value, 10);\n        break;\n    case 49:\n        tray.maxBegrIntro.value = checkData(msg.payload.value, 10);\n        break;\n    case 51:\n        tray.defrostBlocking.value = checkData(msg.payload.value, 10);\n        break;\n    case 53:\n        tray.defrostLoadTemp.value = checkData(msg.payload.value, 10);\n        break;\n    case 54:\n        tray.outTempBlock.value = checkData(msg.payload.value, 10);\n        break;\n    case 120:\n        tray.fanSet.value = checkData(msg.payload.value, 1);\n        break;\n    case 124:\n        tray.fanMax.value = checkData(msg.payload.value, 10);\n        break;\n    case 133:\n        tray.LB3ValveMax.value = checkData(msg.payload.value, 10);\n        break;\n    case 134:\n        tray.LB3ValveSet.value = checkData(msg.payload.value, 10);\n        break;\n    case 136:\n        tray.LB3ValveDelay.value = checkData(msg.payload.value, 1);\n        break;\n    case 202:\n        tray.defrostMaxTime.value = checkData(msg.payload.value, 1);\n        break;\n    case 2032:\n        tray.extSetpoint.value = checkData(msg.payload.value, 10);\n        break;\n    case 2033:\n        tray.extOutsideTemp.value = checkData(msg.payload.value, 10);\n        break;\n    case 2054:\n        tray.externalBlocking.value = checkData(msg.payload.value, 1);\n        break;\n    default:\n        break;\n}\nreturn {topic:'settingCompleted', payload:true};\nfunction checkData(rawVal, resolution) \n{\n    let newVal = rawVal;\n    if (newVal > 32767) newVal = newVal - 65536;\n    newVal = newVal / resolution;\n    return newVal;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 340,
+        "wires": [
+            [
+                "184fe4c567bcfc8d"
+            ]
+        ]
+    },
+    {
+        "id": "184fe4c567bcfc8d",
+        "type": "link out",
+        "z": "281e0a510310e9c6",
+        "name": "Check Modbus Setting out",
+        "mode": "link",
+        "links": [
+            "45a97566b65c65cc",
+            "04d132d87ffeb91a"
+        ],
+        "x": 935,
+        "y": 340,
         "wires": []
     }
 ]
