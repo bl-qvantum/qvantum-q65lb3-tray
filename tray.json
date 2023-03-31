@@ -2,11 +2,11 @@
   "type": "qvantum-q65llb3",
   "name": "simrishamn",
   "arcPeriod": 60000,
-  "timeStamp": 1670060799788,
+  "timeStamp": 1680024253068,
   "watchdog": {
     "action": "reading",
     "type": "scalar",
-    "value": 8,
+    "value": 27551,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -111,10 +111,10 @@
   "lowPressure": {
     "action": "reading",
     "type": "scalar",
-    "value": 4.1,
+    "value": 5,
     "unit": "bar",
     "alarm": {
-      "value": 0,
+      "value": 2,
       "limits": {
         "lolo": 1,
         "low": 1,
@@ -131,7 +131,7 @@
   "suctionGas": {
     "action": "reading",
     "type": "scalar",
-    "value": 9.7,
+    "value": 7.4,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -151,10 +151,10 @@
   "evapTemp": {
     "action": "reading",
     "type": "scalar",
-    "value": 3,
+    "value": 7.8,
     "unit": "C",
     "alarm": {
-      "value": 0,
+      "value": 2,
       "limits": {
         "lolo": -15,
         "low": -10,
@@ -171,10 +171,10 @@
   "defrostTank": {
     "action": "reading",
     "type": "scalar",
-    "value": 49.4,
+    "value": 12.3,
     "unit": "C",
     "alarm": {
-      "value": 0,
+      "value": 3,
       "limits": {
         "lolo": 38,
         "low": 43,
@@ -191,10 +191,10 @@
   "coolIn": {
     "action": "reading",
     "type": "scalar",
-    "value": 1.1,
+    "value": 10,
     "unit": "C",
     "alarm": {
-      "value": 0,
+      "value": 4,
       "limits": {
         "lolo": -5,
         "low": -2,
@@ -211,7 +211,7 @@
   "coolOut": {
     "action": "reading",
     "type": "scalar",
-    "value": 6.2,
+    "value": 7.3,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -231,10 +231,10 @@
   "heatIn": {
     "action": "reading",
     "type": "scalar",
-    "value": 45.4,
+    "value": 25.5,
     "unit": "C",
     "alarm": {
-      "value": 0,
+      "value": 3,
       "limits": {
         "lolo": 36,
         "low": 41,
@@ -251,10 +251,10 @@
   "heatOut": {
     "action": "reading",
     "type": "scalar",
-    "value": 48.4,
+    "value": 33.3,
     "unit": "C",
     "alarm": {
-      "value": 0,
+      "value": 3,
       "limits": {
         "lolo": 40,
         "low": 45,
@@ -271,7 +271,7 @@
   "hotGas": {
     "action": "reading",
     "type": "scalar",
-    "value": 56,
+    "value": 60.6,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -291,15 +291,15 @@
   "radiatorFeed": {
     "action": "reading",
     "type": "scalar",
-    "value": 32.1,
+    "value": 36.1,
     "unit": "C",
     "alarm": {
       "value": 0,
       "limits": {
         "lolo": 22,
         "low": 27,
-        "high": 37,
-        "hihi": 42
+        "high": 50,
+        "hihi": 55
       },
       "notify": {
         "name": "",
@@ -351,7 +351,7 @@
   "radiatorReturn": {
     "action": "reading",
     "type": "scalar",
-    "value": 25.8,
+    "value": 27.3,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -371,15 +371,15 @@
   "curveSetPoint": {
     "action": "reading",
     "type": "scalar",
-    "value": 32.8,
+    "value": 39.1,
     "unit": "",
     "alarm": {
       "value": 0,
       "limits": {
-        "lolo": 30,
-        "low": 31,
-        "high": 34,
-        "hihi": 36
+        "lolo": 17,
+        "low": 18,
+        "high": 46,
+        "hihi": 50
       },
       "notify": {
         "name": "",
@@ -391,15 +391,15 @@
   "heatBalance": {
     "action": "reading",
     "type": "scalar",
-    "value": 23,
+    "value": 700,
     "unit": "",
     "alarm": {
-      "value": 0,
+      "value": 2,
       "limits": {
-        "lolo": 15,
-        "low": 20,
-        "high": 30,
-        "hihi": 35
+        "lolo": -26,
+        "low": -25,
+        "high": 600,
+        "hihi": 701
       },
       "notify": {
         "name": "",
@@ -831,7 +831,7 @@
   "opStatus": {
     "action": "reading",
     "type": "scalar",
-    "value": 72,
+    "value": 107,
     "unit": "",
     "alarm": {
       "value": 4,
@@ -851,7 +851,7 @@
   "compressor": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 1,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -871,7 +871,7 @@
   "coolantPump": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 1,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -951,7 +951,7 @@
   "addHeat": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 1,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -991,7 +991,7 @@
   "afterTankSG": {
     "action": "reading",
     "type": "scalar",
-    "value": 2.43,
+    "value": 9.99,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -1011,7 +1011,7 @@
   "evapFan": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 3.65,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -1051,7 +1051,7 @@
   "addHeatSG": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 1.38,
     "unit": "",
     "alarm": {
       "value": 0,
@@ -1151,15 +1151,15 @@
   "startLevelTillsats": {
     "action": "setting",
     "type": "scalar",
-    "value": 200,
+    "value": 600,
     "unit": "Kmin",
     "alarm": {
       "value": 0,
       "limits": {
         "lolo": 190,
         "low": 195,
-        "high": 205,
-        "hihi": 210
+        "high": 605,
+        "hihi": 610
       },
       "notify": {
         "name": "",
@@ -1291,15 +1291,15 @@
   "curve0C": {
     "action": "setting",
     "type": "scalar",
-    "value": 35,
+    "value": 45,
     "unit": "C",
     "alarm": {
       "value": 0,
       "limits": {
         "lolo": 25,
         "low": 30,
-        "high": 40,
-        "hihi": 45
+        "high": 50,
+        "hihi": 55
       },
       "notify": {
         "name": "",
@@ -1311,7 +1311,7 @@
   "curve20C": {
     "action": "setting",
     "type": "scalar",
-    "value": 20,
+    "value": 21,
     "unit": "C",
     "alarm": {
       "value": 0,
@@ -1331,7 +1331,7 @@
   "summerDownDelay": {
     "action": "setting",
     "type": "scalar",
-    "value": 0,
+    "value": 5,
     "unit": "h",
     "alarm": {
       "value": 0,
@@ -1631,10 +1631,10 @@
   "externalBlocking": {
     "action": "setting",
     "type": "scalar",
-    "value": 72,
+    "value": 107,
     "unit": "",
     "alarm": {
-      "value": 0,
+      "value": 4,
       "limits": {
         "lolo": -1,
         "low": -1,
