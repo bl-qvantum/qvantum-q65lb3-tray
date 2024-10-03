@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  qvantum-q65lb3:
+    image: blinkylite/qvantum-q65lb3:${DOCKER_TAG}
+    restart: unless-stopped
+    container_name: qvantum-q65lb3-${TRAYNAME}
+#    ports:
+#      - "1880:1880"
+    environment:
+      - BOX=${BOX}
+      - TRAYTYPE=qvantum-q65lb3
+      - TRAYNAME=${TRAYNAME}
+      - MQTTCLIENTID=qvantum-q65lb3-tray-${TRAYNAME}
+      - MQTTSERVERIP=blinky-mqtt
+      - MQTTUSERNAME=${BOX}
+      - MQTTPASSWORD=${BLINKYPASSWORD}
+      - MQTTPORT=1883
+      - MODBUSIP=${MODBUSIP}
+      - MODBUSPORT=${MODBUSPORT}
+      - POLLINTERVAL=${POLLINTERVAL}
+      - NODEREDPORT=1880
+      - ENABLE_NODERED_EDITOR=${ENABLE_NODERED_EDITOR}
+networks:
+  default:
+    name: tunnel
+    external: true

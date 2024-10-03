@@ -155,7 +155,7 @@
         "type": "function",
         "z": "b438688e0b293257",
         "name": "Save tray config in Memory",
-        "func": "let tray = msg.payload;\nflow.set('tray', msg.payload);\ntray.trayControl.value = 0;\nreturn {topic: 'setting', payload:{'cube':'trayControl', value:tray.trayControl.value}};\n",
+        "func": "let tray = msg.payload;\nflow.set('tray', msg.payload);\ntray.trayControl.value = 0;\ntray.watchdog.value = 0;\nreturn {topic: 'setting', payload:{'cube':'trayControl', value:tray.trayControl.value}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
