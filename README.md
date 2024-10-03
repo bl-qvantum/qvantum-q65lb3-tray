@@ -1,2 +1,2 @@
-# qvantum-q65llb3-tray
+# qvantum-q65lb3-tray
 
