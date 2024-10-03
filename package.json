@@ -1,5 +1,5 @@
 {
-  "name": "blinky-power-relay-tray",
+  "name": "blinky-bus-serial-tray",
   "version": "1.0.0",
   "description": "",
   "main": "node_modules/node-red/red.js -s ./settings.js -u ./",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Blinky-Lite/blinky-bus-serial-tray.git"
   },
   "keywords": [
     "node-red"
@@ -20,9 +20,9 @@
   },
   "homepage": "",
   "dependencies": {
-    "node-red": "^3.0.2",
-    "node-red-contrib-modbus": "^5.23.3",
-    "node-red-dashboard": "^3.2.3",
-    "node-red-node-pi-gpio": "~2.0.5"
+    "@node-red-contrib-themes/theme-collection": "3.0.6",
+    "node-red": "3.0.2",
+    "node-red-dashboard": "3.4.0",
+    "node-red-contrib-modbus": "5.23.3"
   }
 }
